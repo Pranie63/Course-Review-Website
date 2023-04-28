@@ -1,4 +1,7 @@
 package com.example.coursereviewhw7;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.*;
 //When your program begins, it should check if "Reviews.sqlite3" exists.
 // If the database file doesn't exist:
@@ -8,9 +11,54 @@ import java.sql.*;
 
 //remember to cite the reused code
 public class Data {
-   void testing() throws SQLException {
-      Connection hi;
-      hi = DriverManager.getConnection("jdbc:sqlite:Reviews");
+static Connection connection;
+
+    static void programStart() throws IOException {
+
+          String url = "jdbc:sqlite:";
+          try {
+              connection = DriverManager.getConnection(url);
+              Statement stmt = connection.createStatement();
+              stmt.execute("PRAGMA foreign_keys = ON;");
+
+          }
+
+          catch(SQLException e){
+              e.printStackTrace();
+          }
+
+   }
+
+    public static void connect() { //thoroughly tested
+      if(connection != null){
+         throw new IllegalStateException("Error: Manager is already connected.");
+      }
+      try{
+         connection = DriverManager.getConnection("jdbc:sqlite:Reviews.sqlite3");
+      }
+
+      catch(SQLException e){
+         System.out.println("You are already connected.");
+      }
+   }
+   static Boolean dbExists() {
+      String dbName = "Reviews.sqlite3";
+      File dbFile = new File(dbName);
+      return dbFile.exists();
+   }
+
+   public static void main(String[] args) throws IOException, SQLException {
+        connect();
+        programStart();
+//      programStart();
+       Statement statement = connection.createStatement();
+//       String tb = "CREATE TABLE TB";
+       String x = "CREATE DATABASE X";
+       statement.executeUpdate(x);
+//       Statement stmt = connection.createStatement();
+//       stmt.execute(x);
+    //createNewDatabase("Reviews.sqlite3");
 
    }
 }
+
