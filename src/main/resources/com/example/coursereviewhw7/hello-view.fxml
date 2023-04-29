@@ -1,16 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.coursereviewhw7.HelloController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
-</VBox>
+<AnchorPane prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.coursereviewhw7.HelloController">
+    <Label layoutX="60.0" layoutY="25.0" text="Login or Create a new user" />
+    <RadioButton fx:id="existingUserRadioButton" layoutX="60.0" layoutY="60.0" mnemonicParsing="false" text="Login to existing user" />
+    <RadioButton fx:id="newUserRadioButton" layoutX="60.0" layoutY="90.0" mnemonicParsing="false" text="Create a new user" />
+    <Label fx:id="usernameLabel" layoutX="60.0" layoutY="130.0" text="Username" />
+    <Label fx:id="passwordLabel" layoutX="60.0" layoutY="160.0" text="Password" />
+    <TextField fx:id="usernameTextField" layoutX="140.0" layoutY="130.0" />
+    <PasswordField fx:id="passwordField" layoutX="140.0" layoutY="160.0" />
+<!--    <Button fx:id="submitButton" layoutX="140.0" layoutY="190.0" mnemonicParsing="false" onAction="#handleSubmitButtonAction" text="Submit" />-->
+</AnchorPane>
+
+        <!--<?xml version="1.0" encoding="UTF-8"?>-->
+
+        <!--<?import javafx.geometry.Insets?>-->
+        <!--<?import javafx.scene.control.Label?>-->
+        <!--<?import javafx.scene.layout.VBox?>-->
+
+        <!--<?import javafx.scene.control.Button?>-->
+        <!--<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"-->
+        <!--      fx:controller="com.example.coursereviewhw7.HelloController">-->
+        <!--    <padding>-->
+        <!--        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>-->
+        <!--    </padding>-->
+
+        <!--    <Label fx:id="welcomeText"/>-->
+        <!--    <Button text="Hello!" onAction="#onHelloButtonClick"/>-->
+        <!--</VBox>-->
