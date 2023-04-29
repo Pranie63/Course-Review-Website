@@ -15,11 +15,15 @@ static Connection connection;
 
     static void programStart() throws IOException {
 
-          String url = "jdbc:sqlite:";
+//          String url = "jdbc:sqlite:Reviews.sqlite3";
           try {
-              connection = DriverManager.getConnection(url);
-              Statement stmt = connection.createStatement();
-              stmt.execute("PRAGMA foreign_keys = ON;");
+//              connection = DriverManager.getConnection(url);
+              if (connection != null) {
+                  DatabaseMetaData metaData = connection.getMetaData();
+                  System.out.println("Metadata: " + metaData);
+              }
+//              Statement stmt = connection.createStatement();
+//              stmt.execute("PRAGMA foreign_keys = ON;");
 
           }
 
@@ -47,14 +51,58 @@ static Connection connection;
       return dbFile.exists();
    }
 
+    private void connectionCheck() {
+        if ( connection == null) {
+            throw new IllegalStateException("Error: Manager has not connected yet.");
+        }
+    }
+
+    public void createTables() {//tested for catching all exceptions ✔
+
+        try {
+            connectionCheck();
+
+            Statement statement = connection.createStatement();
+            String studentsTable = "CREATE TABLE IF NOT EXISTS STUDENTS"
+                    + " (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "
+                    + "Username VARCHAR(255) UNIQUE NOT NULL, "
+                    + "Password VARCHAR(255) NOT NULL);";
+            statement.executeUpdate(studentsTable);
+
+            String coursesTable = "CREATE TABLE IF NOT EXISTS COURSES"
+                    + " (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "
+                    + "Department VARCHAR(255) NOT NULL, "
+                    + "Catalog_Number INTEGER NOT NULL);";
+            statement.executeUpdate(coursesTable);
+
+            String reviewsTable = "CREATE TABLE IF NOT EXISTS REVIEWS"
+                    + " (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "
+                    + "StudentID INTEGER NOT NULL, "
+                    + "CourseID INTEGER NOT NULL, "
+                    + "Message VARCHAR(255) NOT NULL, "
+                    + "Rating INTEGER NOT NULL, "
+                    + "CHECK (Rating >= 1 AND Rating <= 5), "
+                    + "FOREIGN KEY (StudentID) REFERENCES STUDENTS(id) ON DELETE CASCADE, "
+                    + "FOREIGN KEY (CourseID) REFERENCES COURSES(id) ON DELETE CASCADE);";
+            statement.executeUpdate(reviewsTable);
+
+
+            statement.close();
+        } catch (SQLException e) {
+            throw new IllegalStateException("Error: Tables already exist.");
+        }
+    }
+
    public static void main(String[] args) throws IOException, SQLException {
+        Data D = new Data();
         connect();
-        programStart();
+        D.createTables();
+//        programStart();
 //      programStart();
-       Statement statement = connection.createStatement();
-//       String tb = "CREATE TABLE TB";
-       String x = "CREATE DATABASE X";
-       statement.executeUpdate(x);
+//       Statement statement = connection.createStatement();
+//       String tb = "CREATE TABLE TB (id INTEGER NOT NULL)";
+//       String x = "CREATE DATABASE X";
+//       statement.executeUpdate(tb);
 //       Statement stmt = connection.createStatement();
 //       stmt.execute(x);
     //createNewDatabase("Reviews.sqlite3");
