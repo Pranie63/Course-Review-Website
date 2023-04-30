@@ -97,15 +97,6 @@ static Connection connection;
         Data D = new Data();
         connect();
         D.createTables();
-//        programStart();
-//      programStart();
-//       Statement statement = connection.createStatement();
-//       String tb = "CREATE TABLE TB (id INTEGER NOT NULL)";
-//       String x = "CREATE DATABASE X";
-//       statement.executeUpdate(tb);
-//       Statement stmt = connection.createStatement();
-//       stmt.execute(x);
-    //createNewDatabase("Reviews.sqlite3");
 
    }
 }
