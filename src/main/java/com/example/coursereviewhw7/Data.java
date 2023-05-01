@@ -89,7 +89,7 @@ private Review review;
             connectionCheck();
             if(!userExists(student)){
                 if(student.getPassword().equals(passwordVerify)){
-                    String query = "INSERT INTO Users (username, password) VALUES (?, ?)";
+                    String query = "INSERT INTO STUDENTS (username, password) VALUES (?, ?)";
                     PreparedStatement ps = connection.prepareStatement(query);
                     ps.setString(1,student.getName());
                     ps.setString(2,student.getPassword());
@@ -117,7 +117,7 @@ private Review review;
             if (courseExists(course)) {
                 student.getReviewList().put(course, review);
                 // Retrieve the student ID from the database
-                String studentQuery = "SELECT ID FROM Student WHERE Name=?";
+                String studentQuery = "SELECT ID FROM STUDENTS WHERE Name=?";
                 PreparedStatement studentPstmt = connection.prepareStatement(studentQuery);
                 studentPstmt.setString(1, student.getName());
                 ResultSet studentRs = studentPstmt.executeQuery();
@@ -126,7 +126,7 @@ private Review review;
                 studentPstmt.close();
 
                 // Retrieve the course ID from the database
-                String courseQuery = "SELECT ID FROM Course WHERE Department=? AND CatalogNumber=?";
+                String courseQuery = "SELECT ID FROM COURSES WHERE Department=? AND CatalogNumber=?";
                 PreparedStatement coursePstmt = connection.prepareStatement(courseQuery);
                 coursePstmt.setString(1, course.getDepartment());
                 coursePstmt.setInt(2, course.getCatalogNumber());
@@ -136,7 +136,7 @@ private Review review;
                 coursePstmt.close();
 
                 // Insert the review into the Review table
-                String reviewQuery = "INSERT INTO Review (StudentID, CourseID, Message, Rating) VALUES (?, ?, ?, ?)";
+                String reviewQuery = "INSERT INTO REVIEWS (StudentID, CourseID, Message, Rating) VALUES (?, ?, ?, ?)";
                 PreparedStatement reviewPstmt = connection.prepareStatement(reviewQuery);
                 reviewPstmt.setInt(1, studentID);
                 reviewPstmt.setInt(2, courseID);
@@ -151,7 +151,7 @@ private Review review;
             else{
                 if(validCourse(course)){//arnav: in the JAVAFX, you need to do 2.1.1.6.1
 
-                    String courseInsertQuery = "INSERT INTO Course (Department, CatalogNumber) VALUES (?, ?)";
+                    String courseInsertQuery = "INSERT INTO COURSES (Department, CatalogNumber) VALUES (?, ?)";
                     PreparedStatement courseInsertPstmt = connection.prepareStatement(courseInsertQuery);
                     courseInsertPstmt.setString(1, course.getDepartment());
                     courseInsertPstmt.setInt(2, course.getCatalogNumber());
@@ -172,7 +172,7 @@ private Review review;
 //2.2.1.5
     public Boolean courseHasReview(Course course) throws SQLException {
         boolean hasReview;
-        String query = "SELECT * FROM Review WHERE CourseDepartment = ? AND CourseCatalogNumber = ?";
+        String query = "SELECT * FROM REVIEWS WHERE CourseDepartment = ? AND CourseCatalogNumber = ?";
 
         PreparedStatement pstmt = connection.prepareStatement(query);
         pstmt.setString(1, course.getDepartment());
@@ -216,7 +216,7 @@ private Review review;
 
     private Boolean userExists(Student student) throws SQLException {
         boolean exists;
-        String query = "SELECT Username FROM Students WHERE Username = ?";
+        String query = "SELECT Username FROM STUDENTS WHERE Username = ?";
 
         PreparedStatement ps = connection.prepareStatement(query);
         ps.setString(1,student.getName());
@@ -231,7 +231,7 @@ private Review review;
 
     private Boolean courseExists(Course course) throws SQLException {
         boolean exists;
-        String query = "SELECT * FROM Courses WHERE Department = ? AND Catalog_Number = ?";
+        String query = "SELECT * FROM COURSES WHERE Department = ? AND Catalog_Number = ?";
 
         PreparedStatement ps = connection.prepareStatement(query);
         ps.setString(1,course.getDepartment());
