@@ -1,6 +1,7 @@
 package com.example.coursereviewhw7;
 
 public class Review {
+
     private int rating;
     private String reviewText;
 
@@ -19,6 +20,7 @@ public class Review {
     public String getReviewText() {
         return reviewText;
     }
+
     public void setReviewText(String reviewText){
         this.reviewText = reviewText;
     }
