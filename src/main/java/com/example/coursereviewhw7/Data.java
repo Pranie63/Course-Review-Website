@@ -63,7 +63,7 @@ private Review review;
         }
     }
     //1.1 - Check if account exists
-    private Boolean accountCorrect(Student student){ //returns True is the entered user & passcode is correct
+    public Boolean accountCorrect(Student student){ //returns True is the entered user & passcode is correct
         boolean exists = false;
         try{
             connectionCheck();
@@ -84,7 +84,7 @@ private Review review;
         return exists;
     }
     //1.2 - Create new User
-    private void createUser(Student student, String passwordVerify){
+    public void createUser(Student student, String passwordVerify){
         try{
             connectionCheck();
             if(!userExists(student)){
@@ -112,7 +112,7 @@ private Review review;
 
     //2.1 - Submit Review for Course
 
-    private void submitReview(Student student, Review review, Course course) throws SQLException {
+    public void submitReview(Student student, Review review, Course course) throws SQLException {
         if (!student.getReviewList().containsKey(course)) {//ensure student hasn't already reviews
             if (courseExists(course)) {
                 student.getReviewList().put(course, review);
@@ -162,7 +162,7 @@ private Review review;
 
     }
 //2.1.1.6.2
-    private Boolean validRating(Student student, Course course){
+    public Boolean validRating(Student student, Course course){
        int reviewNum = student.getReviewList().get(course).getRating();
         if(reviewNum >= 0 && reviewNum <= 5){
             return true;
@@ -170,7 +170,7 @@ private Review review;
        return false;
     }
 //2.2.1.5
-    private Boolean courseHasReview(Course course) throws SQLException {
+    public Boolean courseHasReview(Course course) throws SQLException {
         boolean hasReview;
         String query = "SELECT * FROM Review WHERE CourseDepartment = ? AND CourseCatalogNumber = ?";
 
