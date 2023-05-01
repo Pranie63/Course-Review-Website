@@ -11,54 +11,24 @@ import java.sql.*;
 
 //remember to cite the reused code
 public class Data {
-static Connection connection;
-
+private static Connection connection;
+private Student student;
+private Course course;
+private Review review;
+//REQUIRED METHODS
     static void programStart() throws IOException {
-
-//          String url = "jdbc:sqlite:Reviews.sqlite3";
           try {
-//              connection = DriverManager.getConnection(url);
               if (connection != null) {
                   DatabaseMetaData metaData = connection.getMetaData();
                   System.out.println("Metadata: " + metaData);
               }
-//              Statement stmt = connection.createStatement();
-//              stmt.execute("PRAGMA foreign_keys = ON;");
-
           }
-
           catch(SQLException e){
               e.printStackTrace();
           }
-
    }
-
-    public static void connect() { //thoroughly tested
-      if(connection != null){
-         throw new IllegalStateException("Error: Manager is already connected.");
-      }
-      try{
-         connection = DriverManager.getConnection("jdbc:sqlite:Reviews.sqlite3");
-      }
-
-      catch(SQLException e){
-         System.out.println("You are already connected.");
-      }
-   }
-   static Boolean dbExists() {
-      String dbName = "Reviews.sqlite3";
-      File dbFile = new File(dbName);
-      return dbFile.exists();
-   }
-
-    private void connectionCheck() {
-        if ( connection == null) {
-            throw new IllegalStateException("Error: Manager has not connected yet.");
-        }
-    }
 
     public void createTables() {//tested for catching all exceptions ✔
-
         try {
             connectionCheck();
 
@@ -92,7 +62,196 @@ static Connection connection;
             throw new IllegalStateException("Error: Tables already exist.");
         }
     }
+    //1.1 - Check if account exists
+    private Boolean accountCorrect(Student student){ //returns True is the entered user & passcode is correct
+        boolean exists = false;
+        try{
+            connectionCheck();
 
+            String query = "SELECT USERNAME FROM STUDENTS WHERE USERNAME = ? AND password = ?";
+
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, student.getName());
+            ps.setString(2,student.getPassword());
+
+            ResultSet rs = ps.executeQuery();
+
+            exists = rs.next();
+
+        } catch (SQLException e) {
+            throw new IllegalArgumentException("Error: Account doesn't exist, or you entered incorrect credentials.");
+        }
+        return exists;
+    }
+    //1.2 - Create new User
+    private void createUser(Student student, String passwordVerify){
+        try{
+            connectionCheck();
+            if(!userExists(student)){
+                if(student.getPassword().equals(passwordVerify)){
+                    String query = "INSERT INTO Users (username, password) VALUES (?, ?)";
+                    PreparedStatement ps = connection.prepareStatement(query);
+                    ps.setString(1,student.getName());
+                    ps.setString(2,student.getPassword());
+
+                    ps.executeUpdate();
+
+                    ps.close();
+                }
+                else{
+                    throw new IllegalArgumentException("Error: Passwords don't match!");
+                }
+            }
+            else{
+                throw new IllegalArgumentException("Error: This account already exists.");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    //2.1 - Submit Review for Course
+
+    private void submitReview(Student student, Review review, Course course) throws SQLException {
+        if (!student.getReviewList().containsKey(course)) {//ensure student hasn't already reviews
+            if (courseExists(course)) {
+                student.getReviewList().put(course, review);
+                // Retrieve the student ID from the database
+                String studentQuery = "SELECT ID FROM Student WHERE Name=?";
+                PreparedStatement studentPstmt = connection.prepareStatement(studentQuery);
+                studentPstmt.setString(1, student.getName());
+                ResultSet studentRs = studentPstmt.executeQuery();
+                int studentID = studentRs.getInt("ID");
+                studentRs.close();
+                studentPstmt.close();
+
+                // Retrieve the course ID from the database
+                String courseQuery = "SELECT ID FROM Course WHERE Department=? AND CatalogNumber=?";
+                PreparedStatement coursePstmt = connection.prepareStatement(courseQuery);
+                coursePstmt.setString(1, course.getDepartment());
+                coursePstmt.setInt(2, course.getCatalogNumber());
+                ResultSet courseRs = coursePstmt.executeQuery();
+                int courseID = courseRs.getInt("ID");
+                courseRs.close();
+                coursePstmt.close();
+
+                // Insert the review into the Review table
+                String reviewQuery = "INSERT INTO Review (StudentID, CourseID, Message, Rating) VALUES (?, ?, ?, ?)";
+                PreparedStatement reviewPstmt = connection.prepareStatement(reviewQuery);
+                reviewPstmt.setInt(1, studentID);
+                reviewPstmt.setInt(2, courseID);
+                reviewPstmt.setString(3, review.getReviewText());
+                reviewPstmt.setInt(4, review.getRating());
+                reviewPstmt.executeUpdate();
+                reviewPstmt.close();
+
+                //connection.close();
+
+            }
+            else{
+                if(validCourse(course)){//arnav: in the JAVAFX, you need to do 2.1.1.6.1
+
+                    String courseInsertQuery = "INSERT INTO Course (Department, CatalogNumber) VALUES (?, ?)";
+                    PreparedStatement courseInsertPstmt = connection.prepareStatement(courseInsertQuery);
+                    courseInsertPstmt.setString(1, course.getDepartment());
+                    courseInsertPstmt.setInt(2, course.getCatalogNumber());
+                    courseInsertPstmt.executeUpdate();
+                }
+            }
+        }
+
+    }
+//2.1.1.6.2
+    private Boolean validRating(Student student, Course course){
+       int reviewNum = student.getReviewList().get(course).getRating();
+        if(reviewNum >= 0 && reviewNum <= 5){
+            return true;
+        }
+       return false;
+    }
+//2.2.1.5
+    private Boolean courseHasReview(Course course) throws SQLException {
+        boolean hasReview;
+        String query = "SELECT * FROM Review WHERE CourseDepartment = ? AND CourseCatalogNumber = ?";
+
+        PreparedStatement pstmt = connection.prepareStatement(query);
+        pstmt.setString(1, course.getDepartment());
+        pstmt.setInt(2, course.getCatalogNumber());
+
+        ResultSet rs = pstmt.executeQuery();
+
+        hasReview = rs.next();
+
+        rs.close();
+        pstmt.close();
+        return hasReview;
+    }
+//HELPER FUNCTIONS
+
+
+
+    private void connectionCheck() {
+        if ( connection == null) {
+            throw new IllegalStateException("Error: Manager has not connected yet.");
+        }
+    }
+    private static void connect() { //thoroughly tested
+        if(connection != null){
+            throw new IllegalStateException("Error: Manager is already connected.");
+        }
+        try{
+            connection = DriverManager.getConnection("jdbc:sqlite:Reviews.sqlite3");
+        }
+
+        catch(SQLException e){
+            System.out.println("You are already connected.");
+        }
+    }
+
+    static Boolean dbExists() {
+        String dbName = "Reviews.sqlite3";
+        File dbFile = new File(dbName);
+        return dbFile.exists();
+    }
+
+    private Boolean userExists(Student student) throws SQLException {
+        boolean exists;
+        String query = "SELECT Username FROM Students WHERE Username = ?";
+
+        PreparedStatement ps = connection.prepareStatement(query);
+        ps.setString(1,student.getName());
+
+        ResultSet rs = ps.executeQuery();
+        exists = rs.next();
+
+        rs.close();
+        ps.close();
+        return exists;
+    }
+
+    private Boolean courseExists(Course course) throws SQLException {
+        boolean exists;
+        String query = "SELECT * FROM Courses WHERE Department = ? AND Catalog_Number = ?";
+
+        PreparedStatement ps = connection.prepareStatement(query);
+        ps.setString(1,course.getDepartment());
+        ps.setInt(2,course.getCatalogNumber());
+
+        ResultSet rs = ps.executeQuery();
+
+        exists = rs.next();
+
+        rs.close();
+        ps.close();
+
+        return exists;
+    }
+    private Boolean validCourse(Course course){
+       //REGEX
+        String reg = "^[A-Za-z]{1,4} \\d{4}$";
+        return course.getDepartment().matches(reg);
+    }
+    //MAIN
    public static void main(String[] args) throws IOException, SQLException {
         Data D = new Data();
         connect();
