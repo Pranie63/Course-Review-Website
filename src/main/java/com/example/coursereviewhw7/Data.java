@@ -277,7 +277,7 @@ private Review review;
 
         return exists;
     }
-    private Boolean validCourse(Course course){
+    public Boolean validCourse(Course course){
        //REGEX
 //        String reg = "^[A-Za-z]{1,4} \\d{4}$";
         String reg = "[A-Za-z]{1,4}";

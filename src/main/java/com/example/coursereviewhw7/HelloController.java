@@ -6,6 +6,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
 import java.util.HashMap;
 import java.util.Optional;
 
@@ -49,6 +54,10 @@ public class HelloController {
     private boolean isExistingUser = false;
 
     private boolean isNewUser = false;
+
+    public static Student student;
+
+
 
 
     @FXML
@@ -102,12 +111,20 @@ public class HelloController {
         d.programStart();
 
         if (d.accountCorrect(student)) {
-            System.out.println("This is working");
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Login Success");
-            alert.setHeaderText("You have logged in successfully.");
-            alert.showAndWait();
-        } else{
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
+                Parent root = loader.load();
+                MainMenuController controller = loader.getController();
+                controller.SetStudent(student);
+                Scene scene = new Scene(root);
+                Stage stage = (Stage) loginButton.getScene().getWindow();
+                stage.setScene(scene);
+                stage.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else{
             System.out.println("this isnt working");
             // login failed, show error message
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -131,15 +148,32 @@ public class HelloController {
                 alert.setTitle("Your passwords don't match");
                 alert.setHeaderText("Try again");
                 alert.showAndWait();
+                usernameTextField.setText("");
+                passwordField.setText("");
+                passwordFieldVerify.setText("");
+                existingUserRadioButton.setSelected(false);
+                newUserRadioButton.setSelected(false);
+                loginButton.setVisible(false);
+                registerButton.setVisible(false);
+
             }
             else
             {
             d.createUser(NewStudent, NewAccountPasswordVerify);
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Login Success");
-                alert.setHeaderText("You have logged in successfully.");
-                alert.showAndWait();
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
+                    Parent root = loader.load();
+                    MainMenuController controller = loader.getController();
+                    controller.SetStudent(student);
+                    Scene scene = new Scene(root);
+                    Stage stage = (Stage) registerButton.getScene().getWindow();
+                    stage.setScene(scene);
+                    stage.show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
+
             }
     @FXML
     protected void onHelloButtonClick() {
