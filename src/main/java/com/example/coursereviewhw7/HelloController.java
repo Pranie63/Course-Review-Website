@@ -63,6 +63,11 @@ public class HelloController {
     @FXML
     void initialize() {
 
+        // Force the radio buttons to be mutually exclusive
+        ToggleGroup userGroups = new ToggleGroup();
+        existingUserRadioButton.setToggleGroup(userGroups);
+        newUserRadioButton.setToggleGroup(userGroups);
+
         // add event listeners to the radio buttons to show/hide the buttons
         existingUserRadioButton.setOnAction(event -> {
             if (existingUserRadioButton.isSelected()) {
