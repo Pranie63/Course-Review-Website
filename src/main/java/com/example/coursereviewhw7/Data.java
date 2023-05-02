@@ -203,12 +203,21 @@ private Review review;
         }
     }
 //2.1.1.6.2
-    public Boolean validRating(Student student, Course course){
-       int reviewNum = student.getReviewList().get(course).getRating();
-        if(reviewNum >= 0 && reviewNum <= 5){
-            return true;
-        }
-       return false;
+//    public Boolean validRating(Student student, Course course){
+//       int reviewNum = student.getReviewList().get(course).getRating();
+//        if(reviewNum >= 0 && reviewNum <= 5){
+//            return true;
+//        }
+//       return false;
+//    }
+
+    public boolean validRating(Review review){
+        int reviewNum = review.getRating();
+        return reviewNum >= 1 && reviewNum <= 5;
+//        if(reviewNum >= 0 && reviewNum <= 5){
+//            return true;
+//        }
+//        return false;
     }
 //2.2.1.5
     public Boolean courseHasReview(Course course) throws SQLException {
