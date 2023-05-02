@@ -262,7 +262,8 @@ private Review review;
        //REGEX
 //        String reg = "^[A-Za-z]{1,4} \\d{4}$";
         String reg = "[A-Za-z]{1,4}";
-        return course.getDepartment().matches(reg);
+        boolean isValidNum = course.getCatalogNumber() >= 1000 && course.getCatalogNumber() < 10000;
+        return course.getDepartment().matches(reg) && isValidNum;
     }
     //MAIN
    public static void main(String[] args) throws IOException, SQLException {
