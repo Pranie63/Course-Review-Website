@@ -190,6 +190,7 @@ private Review review;
 
     }
 
+    //2.1.1.5
     public void addCourse(Course course) throws SQLException {
         if (!courseExists(course) && validCourse(course)) {
             String courseInsertQuery = "INSERT INTO COURSES (Department, Catalog_Number) VALUES (?, ?)";
