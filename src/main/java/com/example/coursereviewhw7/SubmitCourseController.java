@@ -82,7 +82,7 @@ public class SubmitCourseController {
                     Parent root = loader.load();
 
                     MainMenuController controller = loader.getController();
-                    //controller.SetStudent(student);
+                    controller.SetStudent(student);
                     Scene scene = new Scene(root);
                     Stage stage = (Stage) AddReviewButton.getScene().getWindow();
 
@@ -98,17 +98,48 @@ public class SubmitCourseController {
                 alert.setTitle("Invalid");
                 alert.setHeaderText("You've already tried to review this course, you can't do it again");
                 alert.showAndWait();
+
+            }
+            else {
+                try {
+//            reviewList.put(course, review);
+
+                    // d.addCourse(course);
+//            d.getCourseReview(course);
+
+                    if(!d.validRating(review))
+                    {
+                        ratingField.setText("");
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Invalid");
+                        alert.setHeaderText("This is an invalid rating. Please type a number between 1 and 5.");
+                        alert.showAndWait();
+                    }
+                    else {
+                        d.submitReview(newStudent, review, course);
+                        try {
+                            // Load the login screen FXML file
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
+                            Parent root = loader.load();
+
+                            MainMenuController controller = loader.getController();
+                            //controller.SetStudent(student);
+                            Scene scene = new Scene(root);
+                            Stage stage = (Stage) AddReviewButton.getScene().getWindow();
+
+                            stage.setScene(scene);
+                            stage.show();
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
-        try {
-            reviewList.put(course, review);
-
-            d.submitReview(newStudent, review, course);
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-
     }
 }
