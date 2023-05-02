@@ -3,10 +3,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 //When your program begins, it should check if "Reviews.sqlite3" exists.
 // If the database file doesn't exist:
 // Your program must create the Reviews.sqlite3 database file in the project root directory
@@ -258,6 +255,38 @@ private Review review;
         rs.close();
         pstmt.close();
         return reviewList;
+    }
+
+    public HashMap<Course, Review> getStudentReview(Student student) {
+        try {
+            String query = "SELECT * FROM REVIEWS JOIN COURSES ON REVIEWS.CourseID = COURSES.id WHERE StudentID = (SELECT id FROM STUDENTS WHERE Username = ? AND Password = ?)";
+
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setString(1, student.getName());
+            pstmt.setString(2, student.getPassword());
+
+            ResultSet rs = pstmt.executeQuery();
+
+            HashMap<Course, Review> reviewMap = new HashMap<>();
+            Review courseReview;
+            Course course;
+            for (int i = 1 ; i <= rs.getMetaData().getColumnCount(); i++) {
+                System.out.println(rs.getMetaData().getColumnName(i));
+            }
+            while (rs.next()) {
+                courseReview = new Review(rs.getInt("Rating"), rs.getString("Message"));
+                course = new Course(rs.getString("Department"), rs.getInt("Catalog_Number"));
+                reviewMap.put(course, courseReview);
+            }
+
+//        System.out.println(rs.getInt(1));
+
+            rs.close();
+            pstmt.close();
+            return reviewMap;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 //HELPER FUNCTIONS
 
