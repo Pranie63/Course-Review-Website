@@ -184,7 +184,7 @@ private Review review;
 //2.2.1.5
     public Boolean courseHasReview(Course course) throws SQLException {
         boolean hasReview;
-        String query = "SELECT * FROM REVIEWS WHERE CourseDepartment = ? AND CourseCatalogNumber = ?";
+        String query = "SELECT * FROM REVIEWS WHERE CourseID = (SELECT id FROM COURSES WHERE Department = ? AND Catalog_Number = ?)";
 
         PreparedStatement pstmt = connection.prepareStatement(query);
         pstmt.setString(1, course.getDepartment());
