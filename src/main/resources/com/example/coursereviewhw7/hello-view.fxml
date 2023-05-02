@@ -7,23 +7,26 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.coursereviewhw7.HelloController">
+<AnchorPane prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.coursereviewhw7.HelloController">
     <Label layoutX="60.0" layoutY="25.0" text="Login or Create a new user" />
     <RadioButton fx:id="existingUserRadioButton" layoutX="60.0" layoutY="60.0" mnemonicParsing="false" text="Login to existing user" />
     <RadioButton fx:id="newUserRadioButton" layoutX="60.0" layoutY="90.0" mnemonicParsing="false" text="Create a new user" />
     <Label fx:id="usernameLabel" layoutX="60.0" layoutY="130.0" text="Username" />
     <Label fx:id="passwordLabel" layoutX="60.0" layoutY="160.0" text="Password" />
-    <Label fx:id="ConfirmPasswordLabel" layoutX="40.0" layoutY="190.0" text="Confirm Password" />
+    <Label fx:id="passwordFieldVerifyLabel" layoutX="30.0" layoutY="190.0" text="Confirm Password" visible="${newUserRadioButton.selected}" />
+
+
     <TextField fx:id="usernameTextField" layoutX="140.0" layoutY="130.0" />
     <PasswordField fx:id="passwordField" layoutX="140.0" layoutY="160.0" />
-    <PasswordField fx:id="ConfirmPasswordField" layoutX="140.0" layoutY="190.0" />
+    <PasswordField fx:id="passwordFieldVerify" layoutX="140.0" layoutY="190.0" visible="${newUserRadioButton.selected}" />
+
+    <!-- Login Buttons -->
+    <Button fx:id="loginButton" layoutX="140.0" layoutY="220.0" mnemonicParsing="false" onAction="#accountController" text="Login" visible = "false"/>
+    <Button fx:id="registerButton" layoutX="140.0" layoutY="250.0" mnemonicParsing="false" onAction="#newAccount" text="Login" visible = "false"/>
 
 
-    <Button fx:id="loginButton" layoutX="140.0" layoutY="220.0" mnemonicParsing="false" onAction="#handleLoginButtonAction" text="Login" disable="${newUserRadioButton.selected}"/>
-
-
-    <!--    <Button fx:id="submitButton" layoutX="140.0" layoutY="190.0" mnemonicParsing="false" onAction="#handleSubmitButtonAction" text="Submit" />-->
 </AnchorPane>
+    <!-- Register Button -->
 
         <!--<?xml version="1.0" encoding="UTF-8"?>-->
 

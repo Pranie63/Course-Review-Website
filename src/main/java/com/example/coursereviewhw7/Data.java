@@ -17,18 +17,37 @@ private Student student;
 private Course course;
 private Review review;
 //REQUIRED METHODS
-    static void programStart() throws IOException {
-          try {
-              if (connection != null) {
-                  DatabaseMetaData metaData = connection.getMetaData();
-                  System.out.println("Metadata: " + metaData);
-              }
-          }
-          catch(SQLException e){
-              e.printStackTrace();
-          }
-   }
+//    static void programStart() throws IOException {
+//          try {
+//              if (connection != null) {
+//                  DatabaseMetaData metaData = connection.getMetaData();
+//                  System.out.println("Metadata: " + metaData);
+//              }
+//
+//
+//            connection = DriverManager.getConnection("jdbc:sqlite:Reviewssqlite3");
+//
+//        catch(SQLException e){
+//            System.out.println("You are already connected.");
+//        }
+//          catch(SQLException e){
+//              e.printStackTrace();
+//          }
+//   }
 
+
+        public void programStart() { //thoroughly tested
+            if(connection != null){
+                throw new IllegalStateException("Error: Manager is already connected.");
+            }
+            try{
+                connection = DriverManager.getConnection("jdbc:sqlite:Reviews.sqlite3");
+            }
+
+            catch(SQLException e){
+                System.out.println("You are already connected.");
+            }
+        }
     public void createTables() {//tested for catching all exceptions ✔
         try {
             connectionCheck();
@@ -96,7 +115,7 @@ private Review review;
                     ps.setString(2,student.getPassword());
 
                     ps.executeUpdate();
-
+    
                     ps.close();
                 }
                 else{
@@ -203,7 +222,7 @@ private Review review;
 
 
     private void connectionCheck() {
-        if ( connection == null) {
+        if (connection == null) {
             throw new IllegalStateException("Error: Manager has not connected yet.");
         }
     }
