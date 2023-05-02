@@ -3,7 +3,10 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 //When your program begins, it should check if "Reviews.sqlite3" exists.
 // If the database file doesn't exist:
 // Your program must create the Reviews.sqlite3 database file in the project root directory
@@ -203,7 +206,7 @@ private Review review;
 //2.2.1.5
     public Boolean courseHasReview(Course course) throws SQLException {
         boolean hasReview;
-        String query = "SELECT * FROM REVIEWS WHERE CourseDepartment = ? AND CourseCatalogNumber = ?";
+        String query = "SELECT * FROM REVIEWS WHERE CourseID = (SELECT id FROM COURSES WHERE Department = ? AND Catalog_Number = ?)";
 
         PreparedStatement pstmt = connection.prepareStatement(query);
         pstmt.setString(1, course.getDepartment());
@@ -216,6 +219,29 @@ private Review review;
         rs.close();
         pstmt.close();
         return hasReview;
+    }
+
+    public List<Review> getCourseReview(Course course) throws SQLException {
+        String query = "SELECT * FROM REVIEWS WHERE CourseID = (SELECT id FROM COURSES WHERE Department = ? AND Catalog_Number = ?)";
+
+        PreparedStatement pstmt = connection.prepareStatement(query);
+        pstmt.setString(1, course.getDepartment());
+        pstmt.setInt(2, course.getCatalogNumber());
+
+        ResultSet rs = pstmt.executeQuery();
+
+        List<Review> reviewList = new ArrayList<>();
+        Review courseReview;
+        while (rs.next()) {
+            courseReview = new Review(rs.getInt("Rating"), rs.getString("Message"));
+            reviewList.add(courseReview);
+        }
+
+//        System.out.println(rs.getInt(1));
+
+        rs.close();
+        pstmt.close();
+        return reviewList;
     }
 //HELPER FUNCTIONS
 
@@ -281,7 +307,8 @@ private Review review;
        //REGEX
 //        String reg = "^[A-Za-z]{1,4} \\d{4}$";
         String reg = "[A-Za-z]{1,4}";
-        return course.getDepartment().matches(reg);
+        boolean isValidNum = course.getCatalogNumber() >= 1000 && course.getCatalogNumber() < 10000;
+        return course.getDepartment().matches(reg) && isValidNum;
     }
     //MAIN
    public static void main(String[] args) throws IOException, SQLException {
@@ -321,6 +348,12 @@ private Review review;
 //       D.submitReview(student5, good4Ha, c4);
 //       D.submitReview(student4, bad4Co, c4);
 //       D.submitReview(student4, bad4Co, invalid);
+//       System.out.println(D.courseHasReview(c1));
+//       List<Review> reviewList = D.getCourseReview(c1);
+//       reviewList.stream().forEach((r) -> System.out.println(r.getRating()));
+//       System.out.println(D.courseHasReview(c5));
+//       List<Review> reviewList2 = D.getCourseReview(c5);
+//       reviewList2.stream().forEach((r) -> System.out.println(r.getReviewText()));
    }
 }
 
