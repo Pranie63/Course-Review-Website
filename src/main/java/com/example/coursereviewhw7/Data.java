@@ -40,9 +40,11 @@ private Review review;
 
 
         public void programStart() { //thoroughly tested
-            if(connection != null){
-                throw new IllegalStateException("Error: Manager is already connected.");
-            }
+
+
+//            if(connection != null){
+//                throw new IllegalStateException("Error: Manager is already connected.");
+//            }
             try{
                 connection = DriverManager.getConnection("jdbc:sqlite:Reviews.sqlite3");
             }

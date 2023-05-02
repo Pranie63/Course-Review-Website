@@ -169,7 +169,7 @@ public class HelloController {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
                     Parent root = loader.load();
                     MainMenuController controller = loader.getController();
-                    controller.SetStudent(student);
+                    //controller.SetStudent(student);
                     Scene scene = new Scene(root);
                     Stage stage = (Stage) registerButton.getScene().getWindow();
                     stage.setScene(scene);

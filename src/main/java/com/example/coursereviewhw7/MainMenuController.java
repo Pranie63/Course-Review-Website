@@ -42,28 +42,31 @@ public class MainMenuController {
     private Button AddReviewButton;
 
     @FXML
+    private Button LogOutButton;
+
+    @FXML
     private Label enterRatingLabel;
     private Student student;
 
-
-
-
     public void SetStudent(Student student)
     {
-
+        System.out.println(student);
         this.student = student;
     }
-    @FXML
-    protected void handleAddReviewButtonAction() {
-        //enterCourseLabel.setVisible(true);
-        //enterRatingLabel.setVisible(true);
-        //enterReviewLabel.setVisible(true);
-        CourseNameDepartment.setVisible(true);
-        CourseNameNumber.setVisible(true);
-        ratingField.setVisible(true);
-        reviewField.setVisible(true);
-        handleAddCourseButtonAction();
-    }
+
+
+
+//    @FXML
+//    protected void handleAddReviewButtonAction() {
+//        //enterCourseLabel.setVisible(true);
+//        //enterRatingLabel.setVisible(true);
+//        //enterReviewLabel.setVisible(true);
+//        CourseNameDepartment.setVisible(true);
+//        CourseNameNumber.setVisible(true);
+//        ratingField.setVisible(true);
+//        reviewField.setVisible(true);
+//        handleAddCourseButtonAction();
+//    }
 
 
     @FXML
@@ -73,7 +76,7 @@ public class MainMenuController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("SubmitCourse.fxml"));
             Parent root = loader.load();
-            MainMenuController controller = loader.getController();
+            SubmitCourseController controller = loader.getController();
             controller.SetStudent(student);
             Scene scene = new Scene(root);
             Stage stage = (Stage) AddReviewButton.getScene().getWindow();
@@ -94,16 +97,15 @@ public class MainMenuController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
             Parent root = loader.load();
 
-           //  Create a new stage to display the login screen
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
+            HelloController controller = loader.getController();
+            //controller.SetStudent(student);
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) LogOutButton.getScene().getWindow();
+
+            stage.setScene(scene);
             stage.show();
 
-            // Close the current window
-            Stage currentStage = (Stage) welcomeLabel.getScene().getWindow();
-            currentStage.close();
-
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
