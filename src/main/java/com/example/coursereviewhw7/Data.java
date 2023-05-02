@@ -137,13 +137,7 @@ private Review review;
 
     public void submitReview(Student student, Review review, Course course) throws SQLException {
         if (!student.getReviewList().containsKey(course)) {//ensure student hasn't already reviews
-            if (!courseExists(course) && validCourse(course)) {
-                String courseInsertQuery = "INSERT INTO COURSES (Department, Catalog_Number) VALUES (?, ?)";
-                PreparedStatement courseInsertPstmt = connection.prepareStatement(courseInsertQuery);
-                courseInsertPstmt.setString(1, course.getDepartment());
-                courseInsertPstmt.setInt(2, course.getCatalogNumber());
-                courseInsertPstmt.executeUpdate();
-            }
+            addCourse(course);
             if (courseExists(course)) {
                 student.getReviewList().put(course, review);
                 // Retrieve the student ID from the database
@@ -194,6 +188,16 @@ private Review review;
             }
         }
 
+    }
+
+    public void addCourse(Course course) throws SQLException {
+        if (!courseExists(course) && validCourse(course)) {
+            String courseInsertQuery = "INSERT INTO COURSES (Department, Catalog_Number) VALUES (?, ?)";
+            PreparedStatement courseInsertPstmt = connection.prepareStatement(courseInsertQuery);
+            courseInsertPstmt.setString(1, course.getDepartment());
+            courseInsertPstmt.setInt(2, course.getCatalogNumber());
+            courseInsertPstmt.executeUpdate();
+        }
     }
 //2.1.1.6.2
     public Boolean validRating(Student student, Course course){
