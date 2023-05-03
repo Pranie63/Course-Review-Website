@@ -44,6 +44,13 @@ public class MainMenuController {
     @FXML
     private Button LogOutButton;
 
+
+    @FXML
+    private Button SeeReviewButton;
+
+
+
+
     @FXML
     private Label enterRatingLabel;
     private Student student;
@@ -113,19 +120,18 @@ public class MainMenuController {
     @FXML
     protected void handleViewCoursesButtonAction() {
 
-        int rating = Integer.parseInt(ratingField.getText());
-        String field = reviewField.getText();
-        Review review = new Review(rating,field);
-
-        String department = CourseNameDepartment.getText();
-        int CourseNumber = Integer.parseInt(CourseNameNumber.getText());
-
-        Course course = new Course(department, CourseNumber);
-        HashMap<Course, Review> reviewList = new HashMap<>();
-
-        reviewList.put(course, review);
-        Student newStudent = new Student(student.getName(),student.getPassword(),reviewList);
-        Data d = new Data();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ViewCourse.fxml"));
+            Parent root = loader.load();
+            ViewCourseController controller = loader.getController();
+            controller.SetStudent(student);
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) AddReviewButton.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         // handle view courses button action here
     }
