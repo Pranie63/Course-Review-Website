@@ -99,6 +99,8 @@ private Review review;
             ResultSet rs = ps.executeQuery();
 
             exists = rs.next();
+            ps.close();
+            rs.close();
 
         } catch (SQLException e) {
             throw new IllegalArgumentException("Error: Account doesn't exist, or you entered incorrect credentials.");
@@ -197,6 +199,7 @@ private Review review;
             courseInsertPstmt.setString(1, course.getDepartment());
             courseInsertPstmt.setInt(2, course.getCatalogNumber());
             courseInsertPstmt.executeUpdate();
+            courseInsertPstmt.close();
         }
     }
 //2.1.1.6.2
