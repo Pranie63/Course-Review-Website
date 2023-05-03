@@ -22,4 +22,18 @@ public class Course {
         this.catalogNumber = catalogNumber;
     }
 
+    @Override
+    public int hashCode() {
+        String hashString = department + " " + catalogNumber;
+        return hashString.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof Course)) {
+            return false;
+        }
+        Course otherCourse = (Course)other;
+        return this.catalogNumber == otherCourse.catalogNumber && this.department.equals(otherCourse.department);
+    }
 }
