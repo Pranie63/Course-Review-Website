@@ -210,7 +210,9 @@ package com.example.coursereviewhw7;
 
 
         import java.sql.SQLException;
+        import java.util.ArrayList;
         import java.util.HashMap;
+        import java.util.List;
 
 public class ViewCourseController {
 
@@ -257,7 +259,8 @@ public class ViewCourseController {
         int CourseNumber = Integer.parseInt(CourseNameNumber.getText());
 
         course = new Course(department, CourseNumber);
-        HashMap<Course, Review> reviewList = new HashMap<>();
+//        HashMap<Course, Review> reviewList = new HashMap<>();
+        List<Review> reviewList = new ArrayList<>();
 
 
         //Student student = new Student(student.getName(), student.getPassword(), reviewList);
@@ -266,7 +269,6 @@ public class ViewCourseController {
         Data d = new Data();
 
         d.programStart();
-
         {
             if (!(d.validCourse(course))) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -295,33 +297,40 @@ public class ViewCourseController {
                 try {
                     if(d.courseHasReview(course))
                     {
-                        student.setReviewList(d.getStudentReview(student));
-                        for (Course course2 : student.getReviewList().keySet()) {
-                            System.out.println("The course review is " +student.getReviewList().get(course2).getReviewText() );
-                            //System.out.println("The course review is " +student.getReviewList().get(course2).getReviewText() );
-                            Review review = student.getReviewList().get(course2);
-                            if (course2.getDepartment().equals(department) && course2.getCatalogNumber() == CourseNumber) {
-                                reviewLabel.setText(review.getReviewText());
-                                //ratingLabel.setText("Rating: " + review.getRating());
-                                break;
-                            }
-
-                            }
-                            double sum = 0;
-                            //for (Course course3 : student.getReviewList().keySet()) {
-                            //System.out.println(student.getReviewList().get(course3).getRating());
-                            for(int i = 0;i<student.getReviewList().size();i++)
-                            {
-                               // sum = sum + student.getReviewList().get(course3).getRating();
-                                System.out.println(student.getReviewList().get(course).getRating());
-                                sum = sum + student.getReviewList().get(course).getRating();
-                            }
-                            // System.out.println(student.getReviewList().get(course3).getRating() + "dis the rating");
-
-
-                        double average = sum/student.getReviewList().size();
-                        System.out.println("Course Average: " + average);
-                        averageLabel.setText("Course Average: " + average);
+//                        student.setReviewList(d.getStudentReview(student));
+                        reviewList = d.getCourseReview(course);
+//                        for (Course course2 : student.getReviewList().keySet()) {
+//                            System.out.println("The course review is " +student.getReviewList().get(course2).getReviewText() );
+//                            //System.out.println("The course review is " +student.getReviewList().get(course2).getReviewText() );
+//                            Review review = student.getReviewList().get(course2);
+//                            if (course2.getDepartment().equals(department) && course2.getCatalogNumber() == CourseNumber) {
+//                                reviewLabel.setText(review.getReviewText());
+//                                //ratingLabel.setText("Rating: " + review.getRating());
+//                                break;
+//                            }
+//
+//                            }
+//                            double sum = 0;
+//                            //for (Course course3 : student.getReviewList().keySet()) {
+//                            //System.out.println(student.getReviewList().get(course3).getRating());
+//                            for(int i = 0;i<student.getReviewList().size();i++)
+//                            {
+//                               // sum = sum + student.getReviewList().get(course3).getRating();
+//                                System.out.println(student.getReviewList().get(course).getRating());
+//                                sum = sum + student.getReviewList().get(course).getRating();
+//                            }
+//                            // System.out.println(student.getReviewList().get(course3).getRating() + "dis the rating");
+//
+//
+//                        String reviews = "";
+//                        double sum = 0;
+                        reviewList.stream().forEach((review) -> {
+                            reviewLabel.setText(reviewLabel.getText() + review.getReviewText() + "\n");
+                            averageLabel.setText((Integer.parseInt((averageLabel.getText().equals("") ? "0" : averageLabel.getText())) + review.getRating()) + "");
+                        });
+                        double average = Double.parseDouble(averageLabel.getText())/reviewList.size();
+//                        System.out.println("Course Average: " + average);
+                        averageLabel.setText("Course Average: " + average + "/5");
 
 
                     }
