@@ -120,6 +120,23 @@ public class SubmitCourseController {
                 alert.setHeaderText("You've already tried to review this course, you can't do it again");
                 alert.showAndWait();
 
+                try {
+                    // Load the login screen FXML file
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
+                    Parent root = loader.load();
+
+                    MainMenuController controller = loader.getController();
+                    controller.SetStudent(student);
+                    Scene scene = new Scene(root);
+                    Stage stage = (Stage) AddReviewButton.getScene().getWindow();
+
+                    stage.setScene(scene);
+                    stage.show();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             }
 
             else

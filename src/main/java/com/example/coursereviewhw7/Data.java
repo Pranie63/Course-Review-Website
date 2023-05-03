@@ -334,7 +334,7 @@ private Review review;
         return exists;
     }
 
-    private Boolean courseExists(Course course) throws SQLException {
+    public Boolean courseExists(Course course) throws SQLException {
         boolean exists;
         String query = "SELECT * FROM COURSES WHERE Department = ? AND Catalog_Number = ?";
 
