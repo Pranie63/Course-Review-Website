@@ -10,7 +10,7 @@
         <Label layoutX="250.0" layoutY="56.0" text="Main Menu">
         </Label>
         <Button fx:id="AddReviewButton" layoutX="250.0" layoutY="129.0" mnemonicParsing="false" text="Submit a review for course" onAction="#handleAddCourseButtonAction"  />
-        <Button fx:id="SeeReviewButton" layoutX="250.0" layoutY="184.0" mnemonicParsing="false" text="See reviews for course"  />
+        <Button fx:id="SeeReviewButton" layoutX="250.0" layoutY="184.0" mnemonicParsing="false" text="See reviews for course" onAction = "#handleViewCoursesButtonAction"  />
         <Button fx:id="LogOutButton" layoutX="250.0" layoutY="239.0" mnemonicParsing="false" text="Log out" onAction="#handleLogoutButtonAction" />
 <!--        <Label layoutX="14.0" layoutY="89.0" text="Enter course name (e.g. CS 3140):" />-->
 

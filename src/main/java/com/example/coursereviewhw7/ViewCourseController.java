@@ -45,6 +45,9 @@ public class ViewCourseController {
     private Label reviewLabel;
 
     @FXML
+    private Label averageLabel;
+
+    @FXML
     private Label ratingLabel;
     private Student student ;
     private Course course;
@@ -55,11 +58,6 @@ public class ViewCourseController {
         System.out.println(student);
         this.student = student;
     }
-
-
-
-
-
     @FXML
     protected void ViewCourse() {
 
@@ -107,51 +105,39 @@ public class ViewCourseController {
                     {
                         student.setReviewList(d.getStudentReview(student));
                         for (Course course2 : student.getReviewList().keySet()) {
-                            System.out.println("The course review is " +student.getReviewList().get(course2).getReviewText() );
+                            //System.out.println("The course review is " +student.getReviewList().get(course2).getReviewText() );
+                            Review review = student.getReviewList().get(course2);
+                            if (course2.getDepartment().equals(department) && course2.getCatalogNumber() == CourseNumber) {
+                                reviewLabel.setText(review.getReviewText());
+                                //ratingLabel.setText("Rating: " + review.getRating());
+                                break;
+                            }
                         }
-                        int sum = 0;
-                       for (Course course3 : student.getReviewList().keySet()) {
+                        double sum = 0;
+                       //for (Course course3 : student.getReviewList().keySet()) {
+                           //System.out.println(student.getReviewList().get(course3).getRating());
                            for(int i = 0;i<student.getReviewList().size();i++)
                            {
-                            sum = sum + student.getReviewList().get(course3).getRating();
+                               System.out.println(student.getReviewList().get(course).getRating());
+                            sum = sum + student.getReviewList().get(course).getRating();
                            }
                           // System.out.println(student.getReviewList().get(course3).getRating() + "dis the rating");
-                       }
-                       System.out.println("Course Average: " + sum/student.getReviewList().size());
+
+                       double average = sum/student.getReviewList().size();
+                       System.out.println("Course Average: " + average);
+                       averageLabel.setText("Course Average: " + average);
+
 
                     }
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
             }
-//            } else if (d.courseExists(course)) {
-//
-//                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//                alert.setTitle("Invalid");
-//                alert.setHeaderText("Sorry, your course has no reviews");
-//                alert.showAndWait();
-//
-//            }
+
         }
 
 
     }
-    @FXML
-    protected void ConfirmReview()
-    {
-        int rating = Integer.parseInt(ratingField.getText());
-        String field = reviewField.getText();
 
-        review = new Review(rating, field);
-
-
-        String department = CourseNameDepartment.getText();
-        int CourseNumber = Integer.parseInt(CourseNameNumber.getText());
-
-        course = new Course(department, CourseNumber);
-        Data d = new Data();
-
-
-    }
 }
 
