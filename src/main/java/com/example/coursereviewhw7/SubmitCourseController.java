@@ -37,7 +37,18 @@ public class SubmitCourseController {
     @FXML
     private Button AddReviewButton;
 
+    @FXML
+    private Button ConfirmReviewButton;
+
+
+    @FXML
+    private Label reviewLabel;
+
+    @FXML
+    private Label ratingLabel;
     private Student student ;
+    private Course course;
+    private Review review;
 
     public void SetStudent(Student student)
     {
@@ -46,32 +57,38 @@ public class SubmitCourseController {
     }
 
 
+@FXML
+    private void initialize() {
+        reviewField.setVisible(false);
+        ratingField.setVisible(false);
+        reviewLabel.setVisible(false);
+        ratingLabel.setVisible(false);
+        ConfirmReviewButton.setVisible(false);
+    }
+
+
     @FXML
     protected void AddCourse() {
 
 
-        int rating = Integer.parseInt(ratingField.getText());
-        String field = reviewField.getText();
-
+//
 
         String department = CourseNameDepartment.getText();
         int CourseNumber = Integer.parseInt(CourseNameNumber.getText());
 
-        Review review = new Review(rating, field);
-        Course course = new Course(department, CourseNumber);
+        course = new Course(department, CourseNumber);
         HashMap<Course, Review> reviewList = new HashMap<>();
 
 
+        //Student student = new Student(student.getName(), student.getPassword(), reviewList);
 
-        Student newStudent = new Student(student.getName(), student.getPassword(), reviewList);
-
-        student = newStudent;
+        //student = student;
         Data d = new Data();
 
         d.programStart();
-        newStudent.setReviewList(d.getStudentReview(newStudent));
-        for (Course course2: newStudent.getReviewList().keySet()) {
-            System.out.println(newStudent.getReviewList().get(course2).getReviewText());
+        student.setReviewList(d.getStudentReview(student));
+        for (Course course2 : student.getReviewList().keySet()) {
+            System.out.println(student.getReviewList().get(course2).getReviewText());
         }
         {
             if (!(d.validCourse(course))) {
@@ -104,7 +121,36 @@ public class SubmitCourseController {
                 alert.showAndWait();
 
             }
-            else {
+
+            else
+            {
+                reviewField.setVisible(true);
+                ratingField.setVisible(true);
+                reviewLabel.setVisible(true);
+                ratingLabel.setVisible(true);
+                ConfirmReviewButton.setVisible(true);
+            }
+
+        }
+
+
+    }
+@FXML
+        protected void ConfirmReview()
+{
+
+
+
+                int rating = Integer.parseInt(ratingField.getText());
+                String field = reviewField.getText();
+
+                review = new Review(rating, field);
+            Data d = new Data();
+
+
+
+
+
                 try {
 //            reviewList.put(course, review);
 
@@ -120,7 +166,7 @@ public class SubmitCourseController {
                         alert.showAndWait();
                     }
                     else {
-                        d.submitReview(newStudent, review, course);
+                        d.submitReview(student, review, course);
                         try {
                             // Load the login screen FXML file
                             FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
@@ -145,5 +191,4 @@ public class SubmitCourseController {
                 }
             }
         }
-    }
-}
+
