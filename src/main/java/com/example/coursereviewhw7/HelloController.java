@@ -1,187 +1,107 @@
 package com.example.coursereviewhw7;
 
+import javafx.application.Application;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-
-import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.TextField;
+import java.io.IOException;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.util.HashMap;
-import java.util.Optional;
 
+import java.sql.SQLException;
+import java.util.HashMap;
 
 public class HelloController {
+    @FXML
+    private Label welcomeLabel;
+
+    @FXML
+    private TextField reviewField;
+
+    @FXML
+    private TextField ratingField;
+    @FXML
+
+    private TextField CourseNameDepartment;
+    @FXML
+    private TextField CourseNameNumber;
+
+    @FXML
+    private Label enterCourseLabel;
+
+    @FXML
+    private Label enterReviewLabel;
+
+    @FXML
+    private Button AddReviewButton;
+
+    @FXML
+    private Button LogOutButton;
 
 
     @FXML
-    private AnchorPane loginPane;
+    private Button SeeReviewButton;
 
     @FXML
-    private RadioButton existingUserRadioButton;
+    private Button LoginButton;
 
     @FXML
-    private RadioButton newUserRadioButton;
-
-    @FXML
-    private Label usernameLabel;
-
-    @FXML
-    private Label passwordLabel;
-
-    @FXML
-    private TextField usernameTextField;
-
-    @FXML
-    private PasswordField passwordField;
-
-    @FXML
-    private PasswordField passwordFieldVerify;
-
-    @FXML
-    private Button loginButton;
-
-    @FXML
-    private Button registerButton;
-
-    @FXML
-    private Label welcomeText;
-
-    private boolean isExistingUser = false;
-
-    private boolean isNewUser = false;
-
-    public static Student student;
+    private Button NewUserButton;
 
 
 
 
     @FXML
-    void initialize() {
+    private Label enterRatingLabel;
+    private Student student;
 
-        // Force the radio buttons to be mutually exclusive
-        ToggleGroup userGroups = new ToggleGroup();
-        existingUserRadioButton.setToggleGroup(userGroups);
-        newUserRadioButton.setToggleGroup(userGroups);
 
-        // add event listeners to the radio buttons to show/hide the buttons
-        existingUserRadioButton.setOnAction(event -> {
-            if (existingUserRadioButton.isSelected()) {
-                loginButton.setVisible(true);
-                registerButton.setVisible(false);
-            }
-        });
-
-        newUserRadioButton.setOnAction(event -> {
-            if (newUserRadioButton.isSelected()) {
-                loginButton.setVisible(false);
-                registerButton.setVisible(true);
-            }
-        });
-    }
 
     @FXML
-    void handleLoginButtonAction() {
-        String username = usernameTextField.getText();
-        String password = passwordField.getText();
+    protected void LoginButtonAction() {
 
-        // check if username and password match an existing user in the Students table
-        // if they do, log in the user
-        // if not, show an error message
-        if (username.equals("test") && password.equals("test123")) {
-            // logged in successfully, do something here
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Login Success");
-            alert.setHeaderText("You have logged in successfully.");
-            alert.showAndWait();
-        } else {
-            // login failed, show error message
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Login Error");
-            System.out.println("Your login's incorrect");
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginAndNewUser.fxml"));
+            Parent root = loader.load();
+            //SubmitCourseController controller = loader.getController();
+            //controller.SetStudent(student);
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) LoginButton.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
+        // handle add course button action here
     }
 
     @FXML
-     public void accountController() {
+    protected void NewUserButtonAction() {
 
-        String username = usernameTextField.getText();
-        String password = passwordField.getText();
-        Student student = new Student(username, password);
-        Data d = new Data();
-        d.programStart();
 
-        if (d.accountCorrect(student)) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
-                Parent root = loader.load();
-                MainMenuController controller = loader.getController();
-                controller.SetStudent(student);
-                Scene scene = new Scene(root);
-                Stage stage = (Stage) loginButton.getScene().getWindow();
-                stage.setScene(scene);
-                stage.show();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginAndNewUser.fxml"));
+            Parent root = loader.load();
+            //SubmitCourseController controller = loader.getController();
+            //controller.SetStudent(student);
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) NewUserButton.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        else{
-            System.out.println("this isnt working");
-            // login failed, show error message
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Login Error");
-        }
+
+        // handle add course button action here
     }
 
-        @FXML
-        public void newAccount()
-        {
-            String NewAccountUsername = usernameTextField.getText();
-            String NewAccountPassword = passwordField.getText();
-            String NewAccountPasswordVerify = passwordFieldVerify.getText();
-            Student NewStudent = new Student(NewAccountUsername, NewAccountPassword);
-            Data d = new Data();
-            d.programStart();
-            if(!(NewAccountPassword.equals(NewAccountPasswordVerify))) {
-                System.out.println(NewAccountPassword);
-                System.out.println(NewAccountPasswordVerify);
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Your passwords don't match");
-                alert.setHeaderText("Try again");
-                alert.showAndWait();
-                usernameTextField.setText("");
-                passwordField.setText("");
-                passwordFieldVerify.setText("");
-                existingUserRadioButton.setSelected(false);
-                newUserRadioButton.setSelected(false);
-                loginButton.setVisible(false);
-                registerButton.setVisible(false);
 
-            }
-            else
-            {
-            d.createUser(NewStudent, NewAccountPasswordVerify);
-                try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
-                    Parent root = loader.load();
-                    MainMenuController controller = loader.getController();
-                    //controller.SetStudent(student);
-                    Scene scene = new Scene(root);
-                    Stage stage = (Stage) registerButton.getScene().getWindow();
-                    stage.setScene(scene);
-                    stage.show();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            }
-    @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
     }
-}
