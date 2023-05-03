@@ -138,9 +138,6 @@ public class SubmitCourseController {
 @FXML
         protected void ConfirmReview()
 {
-
-
-
                 int rating = Integer.parseInt(ratingField.getText());
                 String field = reviewField.getText();
 
