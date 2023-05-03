@@ -69,6 +69,10 @@ public class SubmitCourseController {
         Data d = new Data();
 
         d.programStart();
+        newStudent.setReviewList(d.getStudentReview(newStudent));
+        for (Course course2: newStudent.getReviewList().keySet()) {
+            System.out.println(newStudent.getReviewList().get(course2).getReviewText());
+        }
         {
             if (!(d.validCourse(course))) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -123,7 +127,7 @@ public class SubmitCourseController {
                             Parent root = loader.load();
 
                             MainMenuController controller = loader.getController();
-                            //controller.SetStudent(student);
+                            controller.SetStudent(student);
                             Scene scene = new Scene(root);
                             Stage stage = (Stage) AddReviewButton.getScene().getWindow();
 
