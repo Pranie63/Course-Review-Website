@@ -6,9 +6,18 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.coursereviewhw7.ViewCourseController"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="360.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.coursereviewhw7.SubmitCourseController">
+    <children>
+
+        <Label layoutX="29.0" layoutY="91.0" text="Department:" />
+        <TextField fx:id="CourseNameDepartment" layoutX="116.0" layoutY="91.0" />
+        <Label layoutX="29.0" layoutY="134.0" text="Course Number:" />
+        <TextField fx:id="CourseNameNumber" layoutX="116.0" layoutY="134.0" />
+        <Button fx:id="AddReviewButton" layoutX="148.0" layoutY="276.0" mnemonicParsing="false" onAction="#AddCourse" text="Add Review" />
+        <Label fx:id="reviewLabel" layoutX="29.0" layoutY="177.0" text="Review:" visible="false" />
+        <TextField fx:id="reviewField" layoutX="116.0" layoutY="174.0" prefWidth="200.0" visible="false" />
+        <Label fx:id="ratingLabel" layoutX="29.0" layoutY="221.0" text="Rating:" visible="false" />
+        <TextField fx:id="ratingField" layoutX="116.0" layoutY="218.0" visible="false" />
+    </children>
 </AnchorPane>
