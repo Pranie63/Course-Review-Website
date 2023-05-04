@@ -9,7 +9,7 @@
 
 <AnchorPane style="-fx-background-color: orange;" minHeight="500.0" minWidth="500.0" prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.coursereviewhw7.LoginController">
     <children>
-        <Label layoutX="105" layoutY="1" text="Create Your New User" style="-fx-font-size: 30;-fx-alignment: center;" AnchorPane.leftAnchor="40" AnchorPane.rightAnchor="40">
+        <Label layoutX="105" layoutY="1" text="Login Please" style="-fx-font-size: 30;-fx-alignment: center;" AnchorPane.leftAnchor="40" AnchorPane.rightAnchor="40">
     </Label>
     <Label fx:id="usernameLabel" layoutX="100.0" layoutY="130.0" text="Username" />
     <Label fx:id="passwordLabel" layoutX="100.0" layoutY="160.0" text="Password" />

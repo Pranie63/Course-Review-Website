@@ -7,22 +7,19 @@
 <?import javafx.scene.layout.*?>
 
 
-<AnchorPane prefHeight="360.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.coursereviewhw7.ViewCourseController">
+<AnchorPane style="-fx-background-color: orange;" minHeight="500.0" minWidth="500.0" prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.coursereviewhw7.ViewCourseController">
     <children>
 
-        <Label layoutX="29.0" layoutY="91.0" text="Department:" />
-        <TextField fx:id="CourseNameDepartment" layoutX="116.0" layoutY="91.0" />
-        <Label layoutX="29.0" layoutY="134.0" text="Course Number:" />
-        <TextField fx:id="CourseNameNumber" layoutX="116.0" layoutY="134.0" />
-        <Button fx:id="AddReviewButton" layoutX="148.0" layoutY="276.0" mnemonicParsing="false" onAction="#ViewCourse" text="View Course" />
-        <Label fx:id="averageLabel" text="" />
-        <Label fx:id="reviewLabel" text="" layoutY="230.0" />
+        <Label layoutX="105" layoutY="1" text="Enter Course Information" style="-fx-font-size: 30;-fx-alignment: center;" AnchorPane.leftAnchor="40" AnchorPane.rightAnchor="40">
+        </Label>
+        <Label layoutX="29.0" layoutY="91.0" text="Department:" AnchorPane.leftAnchor="100" AnchorPane.rightAnchor="100"/>
+        <TextField fx:id="CourseNameDepartment" layoutX="116.0" layoutY="91.0" AnchorPane.leftAnchor="185" AnchorPane.rightAnchor="185" />
+        <Label layoutX="29.0" layoutY="134.0" text="Course Number:" AnchorPane.leftAnchor="100" AnchorPane.rightAnchor="100"/>
+        <TextField fx:id="CourseNameNumber" layoutX="116.0" layoutY="134.0" AnchorPane.leftAnchor="185" AnchorPane.rightAnchor="185"/>
+        <Button fx:id="AddReviewButton" layoutX="148.0" layoutY="190.0" style = "-fx-background-color: green; -fx-font-size: 14px;-fx-alignment: center;" mnemonicParsing="false" text="View course" onAction="#ViewCourse"  prefWidth="50" prefHeight="40" AnchorPane.leftAnchor="185" AnchorPane.rightAnchor="185" />
 
-<!--        <Button fx:id="ConfirmReviewButton" layoutX="148.0" layoutY="276.0" mnemonicParsing="false" onAction="#ConfirmReview" text="Confirm Review"  />-->
+        <Label fx:id="averageLabel" text=""  layoutX="10.0" layoutY="360.0" />
+        <Label fx:id="reviewLabel" text=""  layoutX="10.0" layoutY="400.0" />
 
-<!--        <Label fx:id="reviewLabel" layoutX="29.0" layoutY="177.0" text="Review:" visible="false" />-->
-<!--        <TextField fx:id="reviewField" layoutX="116.0" layoutY="174.0" prefWidth="200.0" visible="false" />-->
-<!--        <Label fx:id="ratingLabel" layoutX="29.0" layoutY="221.0" text="Rating:" visible="false" />-->
-<!--        <TextField fx:id="ratingField" layoutX="116.0" layoutY="218.0" visible="false" />-->
     </children>
 </AnchorPane>

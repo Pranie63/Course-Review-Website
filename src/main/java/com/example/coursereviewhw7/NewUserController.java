@@ -57,7 +57,6 @@ public class NewUserController {
 
 
 
-
     @FXML
     public void newAccount()
     {
