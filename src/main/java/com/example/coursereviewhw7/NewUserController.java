@@ -84,10 +84,10 @@ public class NewUserController {
                 usernameTextField.setText("");
                 passwordField.setText("");
                 passwordFieldVerify.setText("");
-                existingUserRadioButton.setSelected(false);
-                newUserRadioButton.setSelected(false);
-                loginButton.setVisible(false);
-                registerButton.setVisible(false);
+//                existingUserRadioButton.setSelected(false);
+//                newUserRadioButton.setSelected(false);
+//                loginButton.setVisible(false);
+//                registerButton.setVisible(false);
 
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
