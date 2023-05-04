@@ -11,7 +11,7 @@
         </Label>
         <Button fx:id="AddReviewButton" layoutX="190.0" layoutY="60.0" style = "-fx-background-color: green; -fx-font-size: 14px;-fx-alignment: center;" mnemonicParsing="false" text="Submit a review for the course" onAction="#handleAddCourseButtonAction"  prefWidth="200" prefHeight="100" AnchorPane.leftAnchor="135" AnchorPane.rightAnchor="135" />
         <Button fx:id="SeeReviewButton" layoutX="190.0" layoutY="200.0" style = "-fx-background-color: green; -fx-font-size: 14px;-fx-alignment: center;" mnemonicParsing="false" text="View the reviews for the course" onAction="#handleViewCoursesButtonAction"  prefWidth="200" prefHeight="100" AnchorPane.leftAnchor="135" AnchorPane.rightAnchor="135" />
-        <Button fx:id="LogOutButton"  layoutX="190.0" layoutY="340.0" style = "-fx-background-color: green; -fx-font-size: 14px;-fx-alignment: center;" mnemonicParsing="false" text="Log out" onAction="#handleViewCoursesButtonAction"  prefWidth="200" prefHeight="100" AnchorPane.leftAnchor="135" AnchorPane.rightAnchor="135" />
+        <Button fx:id="LogOutButton"  layoutX="190.0" layoutY="340.0" style = "-fx-background-color: green; -fx-font-size: 14px;-fx-alignment: center;" mnemonicParsing="false" text="Log out" onAction="#handleLogoutButtonAction"  prefWidth="200" prefHeight="100" AnchorPane.leftAnchor="135" AnchorPane.rightAnchor="135" />
 
     </children>
 </AnchorPane>
