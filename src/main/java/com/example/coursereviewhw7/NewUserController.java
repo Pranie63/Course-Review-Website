@@ -97,11 +97,11 @@ public class NewUserController {
 
 
             }
-            else if (d.accountCorrect(NewStudent))
+            else if (d.userExists(NewStudent))
             {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Hey! This account exists already. Go login");
-                alert.setHeaderText("Try again");
+                alert.setHeaderText("Hey! This user exists already. Select another username or login if you already have an account. ");
+                alert.setTitle("Try again");
                 alert.showAndWait();
 
                 try {
