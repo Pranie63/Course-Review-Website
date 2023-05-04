@@ -115,7 +115,11 @@ public class SubmitCourseController {
 @FXML
         protected void ConfirmReview()
 {
-                int rating = Integer.parseInt(ratingField.getText());
+    if (ratingField.getText().equals("") || reviewField.getText().equals("")) {
+        alertPopup("Empty Review", "This is an empty review. Please enter your review and a valid rating.");
+        return;
+    }
+    int rating = Integer.parseInt(ratingField.getText());
                 String field = reviewField.getText();
 
                 review = new Review(rating, field);
