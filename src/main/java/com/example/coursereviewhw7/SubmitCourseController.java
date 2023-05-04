@@ -93,43 +93,11 @@ public class SubmitCourseController {
         {
             if (!(d.validCourse(course))) {
                 alertPopup("Invalid Course", "This is an invalid course. All departments of Strings of 4 or fewer capital letters. All numbers are 4 digits.");
-                try {
-                    // Load the login screen FXML file
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
-                    Parent root = loader.load();
-
-                    MainMenuController controller = loader.getController();
-                    controller.SetStudent(student);
-                    Scene scene = new Scene(root);
-                    Stage stage = (Stage) AddReviewButton.getScene().getWindow();
-
-                    stage.setScene(scene);
-                    stage.show();
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                goToMainMenu();
             } else if (student.getReviewList().containsKey(course)) {
                 alertPopup("Invalid Review", "You've already tried to review this course, you can't do it again");
-                try {
-                    // Load the login screen FXML file
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
-                    Parent root = loader.load();
-
-                    MainMenuController controller = loader.getController();
-                    controller.SetStudent(student);
-                    Scene scene = new Scene(root);
-                    Stage stage = (Stage) AddReviewButton.getScene().getWindow();
-
-                    stage.setScene(scene);
-                    stage.show();
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
+                goToMainMenu();
             }
-
             else
             {
                 reviewField.setVisible(true);
@@ -170,29 +138,31 @@ public class SubmitCourseController {
                     }
                     else {
                         d.submitReview(student, review, course);
-                        try {
-                            // Load the login screen FXML file
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
-                            Parent root = loader.load();
-
-                            MainMenuController controller = loader.getController();
-                            controller.SetStudent(student);
-                            Scene scene = new Scene(root);
-                            Stage stage = (Stage) AddReviewButton.getScene().getWindow();
-
-                            stage.setScene(scene);
-                            stage.show();
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
+                        goToMainMenu();
                     }
-
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
             }
+
+    private void goToMainMenu() {
+        try {
+            // Load the login screen FXML file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
+            Parent root = loader.load();
+
+            MainMenuController controller = loader.getController();
+            controller.SetStudent(student);
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) AddReviewButton.getScene().getWindow();
+
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     private void alertPopup(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
