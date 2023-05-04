@@ -41,6 +41,9 @@ public class SubmitCourseController {
     @FXML
     private Button ConfirmReviewButton;
 
+    @FXML
+    private Button MainMenuButton;
+
 
     @FXML
     private Label reviewLabel;
@@ -95,6 +98,7 @@ public class SubmitCourseController {
             ratingLabel.setVisible(true);
             ConfirmReviewButton.setVisible(true);
             AddReviewButton.setVisible(false);
+            MainMenuButton.setLayoutY(355.0);
         }
     }
 
@@ -122,7 +126,8 @@ public class SubmitCourseController {
         }
     }
 
-    private void goToMainMenu() {
+    @FXML
+    protected void goToMainMenu() {
         try {
             // Load the login screen FXML file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));

@@ -18,6 +18,7 @@
         <TextField fx:id="CourseNameNumber" layoutX="116.0" layoutY="134.0" AnchorPane.leftAnchor="185" AnchorPane.rightAnchor="185"/>
 
         <Button fx:id="AddReviewButton" layoutX="190.0" layoutY="240.0" style = "-fx-background-color: green; -fx-font-size: 14px;-fx-alignment: center;" mnemonicParsing="false" text="Add course" onAction="#AddCourse"  prefWidth="50" prefHeight="40" AnchorPane.leftAnchor="185" AnchorPane.rightAnchor="185" />
+        <Button fx:id="MainMenuButton" layoutX="190.0" layoutY="310.0" style = "-fx-background-color: green; -fx-font-size: 14px;-fx-alignment: center;" mnemonicParsing="false" text="Main Menu" onAction="#goToMainMenu"  prefWidth="50" prefHeight="40" AnchorPane.leftAnchor="185" AnchorPane.rightAnchor="185" />
 
 
         <Button fx:id="ConfirmReviewButton" layoutX="190.0" layoutY="285.0" style = "-fx-background-color: green; -fx-font-size: 14px;-fx-alignment: center;" mnemonicParsing="false" text="Confirm Review" onAction="#ConfirmReview"  prefWidth="50" prefHeight="40" AnchorPane.leftAnchor="185" AnchorPane.rightAnchor="185" />
