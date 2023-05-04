@@ -125,7 +125,7 @@ public class NewUserController {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
                     Parent root = loader.load();
                     MainMenuController controller = loader.getController();
-                    //controller.SetStudent(student);
+                    controller.SetStudent(NewStudent);
                     Scene scene = new Scene(root);
                     Stage stage = (Stage) registerButton.getScene().getWindow();
                     stage.setScene(scene);
