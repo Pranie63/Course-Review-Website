@@ -21,10 +21,10 @@
         <Button fx:id="AddReviewButton" layoutX="148.0" layoutY="190.0" style = "-fx-background-color: green; -fx-font-size: 14px;-fx-alignment: center;" mnemonicParsing="false" text="View course" onAction="#ViewCourse"  prefWidth="50" prefHeight="40" AnchorPane.leftAnchor="185" AnchorPane.rightAnchor="185" />
         <Button fx:id="MainMenuButton" layoutX="148.0" layoutY="260.0" style = "-fx-background-color: green; -fx-font-size: 14px;-fx-alignment: center;" mnemonicParsing="false" text="Main Menu" onAction="#goToMainMenu"  prefWidth="50" prefHeight="40" AnchorPane.leftAnchor="185" AnchorPane.rightAnchor="185" />
 
-        <Label fx:id="averageLabel" text=""  layoutX="148.0" layoutY="330.0" />
+        <Label fx:id="averageLabel" text=""  layoutX="148.0" layoutY="260.0" />
 <!--        <Label fx:id="reviewLabel" text=""  layoutX="10.0" layoutY="400.0" />-->
-        <Label fx:id="reviewLabel" text="Review(s)" layoutX="228.0" layoutY="370.0" />
-        <ListView fx:id="reviewListView" layoutX="5.0" layoutY="390.0" prefWidth="490" prefHeight="100"></ListView>
+        <Label fx:id="reviewLabel" text="Review(s)" layoutX="228.0" layoutY="300.0" />
+        <ListView fx:id="reviewListView" layoutX="50.0" layoutY="320.0" prefWidth="400" prefHeight="150"></ListView>
 
     </children>
 </AnchorPane>

@@ -69,6 +69,8 @@ public class ViewCourseController {
 
     @FXML
     private void initialize() {
+        AddReviewButton.setVisible(true);
+        MainMenuButton.setVisible(true);
         reviewLabel.setVisible(false);
         reviewListView.setVisible(false);
     }
@@ -119,6 +121,8 @@ public class ViewCourseController {
             averageLabel.setText("Course Average: " + average + "/5");
             reviewLabel.setVisible(true);
             reviewListView.setVisible(true);
+            AddReviewButton.setVisible(false);
+            MainMenuButton.setLayoutY(190.0);
         } else {
             alertPopup("No Reviews", "This course has no reviews.");
             goToMainMenu();
