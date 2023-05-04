@@ -310,19 +310,24 @@ private Review review;
         return dbFile.exists();
     }
 
-    public Boolean userExists(Student student) throws SQLException {
-        boolean exists;
-        String query = "SELECT Username FROM STUDENTS WHERE Username = ?";
+    public Boolean userExists(Student student) {
+        try {
+            boolean exists;
+            String query = "SELECT Username FROM STUDENTS WHERE Username = ?";
 
-        PreparedStatement ps = connection.prepareStatement(query);
-        ps.setString(1,student.getName());
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1,student.getName());
 
-        ResultSet rs = ps.executeQuery();
-        exists = rs.next();
+            ResultSet rs = ps.executeQuery();
+            exists = rs.next();
 
-        rs.close();
-        ps.close();
-        return exists;
+            rs.close();
+            ps.close();
+            return exists;
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public Boolean courseExists(Course course) throws SQLException {
