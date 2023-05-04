@@ -146,6 +146,7 @@ public class SubmitCourseController {
                 reviewLabel.setVisible(true);
                 ratingLabel.setVisible(true);
                 ConfirmReviewButton.setVisible(true);
+                AddReviewButton.setVisible(false);
             }
 
         }
