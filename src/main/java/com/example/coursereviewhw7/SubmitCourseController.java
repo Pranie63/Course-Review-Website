@@ -79,28 +79,23 @@ public class SubmitCourseController {
 
         d.programStart();
         student.setReviewList(d.getStudentReview(student));
-        for (Course course2 : student.getReviewList().keySet()) {
-            System.out.println(student.getReviewList().get(course2).getReviewText());
+//        for (Course course2 : student.getReviewList().keySet()) {
+//            System.out.println(student.getReviewList().get(course2).getReviewText());
+//        }
+        if (!(d.validCourse(course))) {
+            alertPopup("Invalid Course", "This is an invalid course. All departments of Strings of 4 or fewer capital letters. All numbers are 4 digits.");
+            goToMainMenu();
+        } else if (student.getReviewList().containsKey(course)) {
+            alertPopup("Invalid Review", "You've already tried to review this course, you can't do it again");
+            goToMainMenu();
+        } else {
+            reviewField.setVisible(true);
+            ratingField.setVisible(true);
+            reviewLabel.setVisible(true);
+            ratingLabel.setVisible(true);
+            ConfirmReviewButton.setVisible(true);
+            AddReviewButton.setVisible(false);
         }
-        {
-            if (!(d.validCourse(course))) {
-                alertPopup("Invalid Course", "This is an invalid course. All departments of Strings of 4 or fewer capital letters. All numbers are 4 digits.");
-                goToMainMenu();
-            } else if (student.getReviewList().containsKey(course)) {
-                alertPopup("Invalid Review", "You've already tried to review this course, you can't do it again");
-                goToMainMenu();
-            } else {
-                reviewField.setVisible(true);
-                ratingField.setVisible(true);
-                reviewLabel.setVisible(true);
-                ratingLabel.setVisible(true);
-                ConfirmReviewButton.setVisible(true);
-                AddReviewButton.setVisible(false);
-            }
-
-        }
-
-
     }
 
     @FXML
@@ -114,14 +109,7 @@ public class SubmitCourseController {
 
         review = new Review(rating, field);
         Data d = new Data();
-
-
         try {
-//            reviewList.put(course, review);
-
-            // d.addCourse(course);
-//            d.getCourseReview(course);
-
             if (!d.validRating(review)) {
                 ratingField.setText("");
                 alertPopup("Invalid Rating", "This is an invalid rating. Please type a number between 1 and 5.");
