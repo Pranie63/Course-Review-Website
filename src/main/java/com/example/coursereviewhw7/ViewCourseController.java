@@ -105,6 +105,9 @@ public class ViewCourseController {
             double average = Double.parseDouble(averageLabel.getText()) / reviewList.size();
 //                        System.out.println("Course Average: " + average);
             averageLabel.setText("Course Average: " + average + "/5");
+        } else {
+            alertPopup("No Reviews", "This course has no reviews.");
+            goToMainMenu();
         }
     }
 
