@@ -1,13 +1,12 @@
 package com.example.coursereviewhw7;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import javafx.application.Application;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
@@ -22,6 +21,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ViewCourseController {
 
@@ -55,6 +55,9 @@ public class ViewCourseController {
 
     @FXML
     private Label ratingLabel;
+
+    @FXML
+    private ListView<String> reviewListView;
     private Student student;
     private Course course;
     private Review review;
@@ -62,6 +65,12 @@ public class ViewCourseController {
     public void SetStudent(Student student) {
         System.out.println(student);
         this.student = student;
+    }
+
+    @FXML
+    private void initialize() {
+        reviewLabel.setVisible(false);
+        reviewListView.setVisible(false);
     }
 
     @FXML
@@ -98,13 +107,18 @@ public class ViewCourseController {
             goToMainMenu();
         } else if (d.courseHasReview(course)){
             reviewList = d.getCourseReview(course);
+            List<String> messageList = reviewList.stream().map((review) -> review.getReviewText()).collect(Collectors.toList());
+            ObservableList<String> obsReviewList = FXCollections.observableList(messageList);
+            reviewListView.setItems(obsReviewList);
             reviewList.stream().forEach((review) -> {
-                reviewLabel.setText(reviewLabel.getText() + review.getReviewText() + "\n");
+//                reviewLabel.setText(reviewLabel.getText() + review.getReviewText() + "\n");
                 averageLabel.setText((Integer.parseInt((averageLabel.getText().equals("") ? "0" : averageLabel.getText())) + review.getRating()) + "");
             });
             double average = Double.parseDouble(averageLabel.getText()) / reviewList.size();
 //                        System.out.println("Course Average: " + average);
             averageLabel.setText("Course Average: " + average + "/5");
+            reviewLabel.setVisible(true);
+            reviewListView.setVisible(true);
         } else {
             alertPopup("No Reviews", "This course has no reviews.");
             goToMainMenu();
