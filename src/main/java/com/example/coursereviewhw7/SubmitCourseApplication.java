@@ -12,7 +12,6 @@ public class SubmitCourseApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainMenuApplication.class.getResource("SubmitCourse.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 500, 500);
-        stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
     }

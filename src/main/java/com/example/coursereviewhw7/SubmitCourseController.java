@@ -58,7 +58,7 @@ public class SubmitCourseController {
     private Review review;
 
     public void SetStudent(Student student) {
-        System.out.println(student);
+
         this.student = student;
     }
 

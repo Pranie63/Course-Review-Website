@@ -57,7 +57,7 @@ public class MainMenuController {
 
     public void SetStudent(Student student)
     {
-        System.out.println(student);
+
         this.student = student;
     }
 

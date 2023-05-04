@@ -75,8 +75,8 @@ public class NewUserController {
                 return;
             }
             else if (!(NewAccountPassword.equals(NewAccountPasswordVerify))) {
-                System.out.println(NewAccountPassword);
-                System.out.println(NewAccountPasswordVerify);
+               // System.out.println(NewAccountPassword);
+               // System.out.println(NewAccountPasswordVerify);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Your passwords don't match");
                 alert.setHeaderText("Try again");

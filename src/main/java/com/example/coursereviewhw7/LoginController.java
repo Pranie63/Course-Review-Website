@@ -91,7 +91,6 @@ public class LoginController {
             }
         }
         else{
-            System.out.println("this isnt working");
             // login failed, show error message
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Your login doesnt work");
