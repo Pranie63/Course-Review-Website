@@ -18,8 +18,7 @@
     <TextField fx:id="usernameTextField" layoutX="185.0" layoutY="130.0" />
     <PasswordField fx:id="passwordField" layoutX="185.0" layoutY="160.0" />
 
-<!--    <Button fx:id="loginButton" layoutX="140.0" layoutY="220.0" mnemonicParsing="false" onAction="#accountController" text="Login" />-->
-        <Button fx:id="loginButton" layoutX="150.0" layoutY="240.0" style = "-fx-background-color: green; -fx-font-size: 14px;-fx-alignment: center;" mnemonicParsing="false" text="Login" onAction="#accountController" prefWidth="50" prefHeight="40" AnchorPane.leftAnchor="175" AnchorPane.rightAnchor="175" />
+        <Button fx:id="loginButton" layoutX="150.0" layoutY="240.0" style = "-fx-background-color: green; -fx-font-size: 14px;-fx-alignment: center;" mnemonicParsing="false" text="Login" onAction="#accountController" prefWidth="50" prefHeight="40" AnchorPane.leftAnchor="185" AnchorPane.rightAnchor="185" />
 
 
     </children>

@@ -10,6 +10,6 @@
         <Label layoutX="60" layoutY="1" text="Welcome to Our Course Review" style="-fx-font-size: 30;-fx-alignment: center;">
         </Label>
         <Button fx:id="LoginButton" layoutX="150.0" layoutY="150.0" style = "-fx-background-color: green; -fx-font-size: 14px;-fx-alignment: center;" mnemonicParsing="false" text="Login" onAction="#LoginButtonAction" prefWidth="100" prefHeight="100" AnchorPane.leftAnchor="175" AnchorPane.rightAnchor="175" />
-        <Button fx:id="NewUserButton" layoutX="150.0" layoutY="300.0" style = "-fx-background-color: green; -fx-font-size: 14px;-fx-alignment: center;" mnemonicParsing="false" text="NewUser" onAction = "#NewUserButtonAction"  prefWidth="120" prefHeight="100" AnchorPane.leftAnchor="175" AnchorPane.rightAnchor="175" />
+        <Button fx:id="NewUserButton" layoutX="150.0" layoutY="300.0" style = "-fx-background-color: green; -fx-font-size: 14px;-fx-alignment: center;" mnemonicParsing="false" text="New User" onAction = "#NewUserButtonAction"  prefWidth="120" prefHeight="100" AnchorPane.leftAnchor="175" AnchorPane.rightAnchor="175" />
     </children>
 </AnchorPane>
