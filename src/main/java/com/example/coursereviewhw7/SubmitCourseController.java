@@ -9,6 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+
 import java.io.IOException;
 
 import javafx.fxml.FXMLLoader;
@@ -46,18 +47,17 @@ public class SubmitCourseController {
 
     @FXML
     private Label ratingLabel;
-    private Student student ;
+    private Student student;
     private Course course;
     private Review review;
 
-    public void SetStudent(Student student)
-    {
+    public void SetStudent(Student student) {
         System.out.println(student);
         this.student = student;
     }
 
 
-@FXML
+    @FXML
     private void initialize() {
         reviewField.setVisible(false);
         ratingField.setVisible(false);
@@ -69,20 +69,12 @@ public class SubmitCourseController {
 
     @FXML
     protected void AddCourse() {
-
-
-//
-
         String department = CourseNameDepartment.getText();
         int CourseNumber = Integer.parseInt(CourseNameNumber.getText());
 
         course = new Course(department, CourseNumber);
         HashMap<Course, Review> reviewList = new HashMap<>();
 
-
-        //Student student = new Student(student.getName(), student.getPassword(), reviewList);
-
-        //student = student;
         Data d = new Data();
 
         d.programStart();
@@ -97,9 +89,7 @@ public class SubmitCourseController {
             } else if (student.getReviewList().containsKey(course)) {
                 alertPopup("Invalid Review", "You've already tried to review this course, you can't do it again");
                 goToMainMenu();
-            }
-            else
-            {
+            } else {
                 reviewField.setVisible(true);
                 ratingField.setVisible(true);
                 reviewLabel.setVisible(true);
@@ -112,42 +102,37 @@ public class SubmitCourseController {
 
 
     }
-@FXML
-        protected void ConfirmReview()
-{
-    if (ratingField.getText().equals("") || reviewField.getText().equals("")) {
-        alertPopup("Empty Review", "This is an empty review. Please enter your review and a valid rating.");
-        return;
-    }
-    int rating = Integer.parseInt(ratingField.getText());
-                String field = reviewField.getText();
 
-                review = new Review(rating, field);
-            Data d = new Data();
+    @FXML
+    protected void ConfirmReview() {
+        if (ratingField.getText().equals("") || reviewField.getText().equals("")) {
+            alertPopup("Empty Review", "This is an empty review. Please enter your review and a valid rating.");
+            return;
+        }
+        int rating = Integer.parseInt(ratingField.getText());
+        String field = reviewField.getText();
 
-
+        review = new Review(rating, field);
+        Data d = new Data();
 
 
-
-                try {
+        try {
 //            reviewList.put(course, review);
 
-                    // d.addCourse(course);
+            // d.addCourse(course);
 //            d.getCourseReview(course);
 
-                    if(!d.validRating(review))
-                    {
-                        ratingField.setText("");
-                        alertPopup("Invalid Rating", "This is an invalid rating. Please type a number between 1 and 5.");
-                    }
-                    else {
-                        d.submitReview(student, review, course);
-                        goToMainMenu();
-                    }
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
+            if (!d.validRating(review)) {
+                ratingField.setText("");
+                alertPopup("Invalid Rating", "This is an invalid rating. Please type a number between 1 and 5.");
+            } else {
+                d.submitReview(student, review, course);
+                goToMainMenu();
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     private void goToMainMenu() {
         try {
@@ -174,5 +159,5 @@ public class SubmitCourseController {
         alert.setHeaderText(content);
         alert.showAndWait();
     }
-        }
+}
 
