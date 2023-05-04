@@ -73,10 +73,7 @@ public class ViewCourseController {
 
         d.programStart();
         if (!(d.validCourse(course))) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Invalid Course");
-            alert.setHeaderText("This is an invalid course. All departments of Strings of 4 or fewer capital letters. All numbers are 4 digits.");
-            alert.showAndWait();
+            alertPopup();
             goToMainMenu();
         } else if (d.courseHasReview(course)){
             reviewList = d.getCourseReview(course);
@@ -108,6 +105,13 @@ public class ViewCourseController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void alertPopup() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Invalid Course");
+        alert.setHeaderText("This is an invalid course. All departments of Strings of 4 or fewer capital letters. All numbers are 4 digits.");
+        alert.showAndWait();
     }
 }
 
