@@ -65,7 +65,7 @@ public class ViewCourseController {
     protected void ViewCourse() {
 
         if (CourseNameDepartment.getText().equals("") || CourseNameNumber.getText().equals("")) {
-            alertPopup();
+            alertPopup("Course Empty", "The course name field is empty. Please enter a valid course.");
             goToMainMenu();
             return;
         }
@@ -79,7 +79,7 @@ public class ViewCourseController {
 
         d.programStart();
         if (!(d.validCourse(course))) {
-            alertPopup();
+            alertPopup("Invalid Course", "This is an invalid course. All departments of Strings of 4 or fewer capital letters. All numbers are 4 digits.");
             goToMainMenu();
         } else if (d.courseHasReview(course)){
             reviewList = d.getCourseReview(course);
@@ -113,10 +113,10 @@ public class ViewCourseController {
         }
     }
 
-    private void alertPopup() {
+    private void alertPopup(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Invalid Course");
-        alert.setHeaderText("This is an invalid course. All departments of Strings of 4 or fewer capital letters. All numbers are 4 digits.");
+        alert.setTitle(title);
+        alert.setHeaderText(content);
         alert.showAndWait();
     }
 }
