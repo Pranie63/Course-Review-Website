@@ -78,6 +78,15 @@ public class SubmitCourseController {
 //        String department = CourseNameDepartment.getText();
 //        int CourseNumber = Integer.parseInt(CourseNameNumber.getText());
         String courseName = CourseName.getText();
+        if (courseName.equals("")) {
+            alertPopup("Course Empty", "The course name field is empty. Please enter a valid course.");
+            return;
+        }
+        else if (!courseName.contains(" ") || courseName.indexOf(' ') == courseName.length()-1 || !numberCheck(courseName)) {
+            alertPopup("Invalid Course", "This is an invalid course. All departments of Strings of 4 or fewer capital letters. All numbers are 4 digits.");
+            goToMainMenu();
+            return;
+        }
         String department = courseName.substring(0, courseName.indexOf(' '));
         int CourseNumber = Integer.parseInt(courseName.substring(courseName.indexOf(' ') + 1));
 
@@ -157,6 +166,16 @@ public class SubmitCourseController {
         alert.setTitle(title);
         alert.setHeaderText(content);
         alert.showAndWait();
+    }
+
+    private boolean numberCheck(String input) {
+        int spaceIndex = input.indexOf(' ');
+        for (int i = 1; i <= 4; i++) {
+            if (spaceIndex + i >= input.length() || !Character.isDigit(input.charAt(spaceIndex + i))) {
+                return false;
+            }
+        }
+        return spaceIndex + 4 == input.length() - 1;
     }
 }
 
