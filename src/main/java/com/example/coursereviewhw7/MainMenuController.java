@@ -79,7 +79,6 @@ public class MainMenuController {
     @FXML
     protected void handleAddCourseButtonAction() {
 
-
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("SubmitCourse.fxml"));
             Parent root = loader.load();

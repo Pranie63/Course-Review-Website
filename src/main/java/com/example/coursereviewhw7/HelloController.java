@@ -68,7 +68,7 @@ public class HelloController {
 
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginAndNewUser.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
             Parent root = loader.load();
             //SubmitCourseController controller = loader.getController();
             //controller.SetStudent(student);
@@ -88,7 +88,7 @@ public class HelloController {
 
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginAndNewUser.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("NewUser.fxml"));
             Parent root = loader.load();
             //SubmitCourseController controller = loader.getController();
             //controller.SetStudent(student);
