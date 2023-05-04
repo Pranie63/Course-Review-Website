@@ -64,6 +64,12 @@ public class ViewCourseController {
     @FXML
     protected void ViewCourse() {
 
+        if (CourseNameDepartment.getText().equals("") || CourseNameNumber.getText().equals("")) {
+            alertPopup();
+            goToMainMenu();
+            return;
+        }
+
         String department = CourseNameDepartment.getText();
         int CourseNumber = Integer.parseInt(CourseNameNumber.getText());
 
