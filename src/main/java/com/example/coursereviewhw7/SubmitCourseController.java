@@ -92,11 +92,7 @@ public class SubmitCourseController {
         }
         {
             if (!(d.validCourse(course))) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Invalid Course");
-                alert.setHeaderText("This is an invalid course.All departments of Strings of 4 or fewer capital letters. All numbers are 4 digits. .");
-                alert.showAndWait();
-
+                alertPopup("Invalid Course", "This is an invalid course. All departments of Strings of 4 or fewer capital letters. All numbers are 4 digits.");
                 try {
                     // Load the login screen FXML file
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
@@ -114,12 +110,7 @@ public class SubmitCourseController {
                     e.printStackTrace();
                 }
             } else if (student.getReviewList().containsKey(course)) {
-
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Invalid");
-                alert.setHeaderText("You've already tried to review this course, you can't do it again");
-                alert.showAndWait();
-
+                alertPopup("Invalid Review", "You've already tried to review this course, you can't do it again");
                 try {
                     // Load the login screen FXML file
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
@@ -175,10 +166,7 @@ public class SubmitCourseController {
                     if(!d.validRating(review))
                     {
                         ratingField.setText("");
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setTitle("Invalid");
-                        alert.setHeaderText("This is an invalid rating. Please type a number between 1 and 5.");
-                        alert.showAndWait();
+                        alertPopup("Invalid Rating", "This is an invalid rating. Please type a number between 1 and 5.");
                     }
                     else {
                         d.submitReview(student, review, course);
@@ -205,5 +193,12 @@ public class SubmitCourseController {
                     throw new RuntimeException(e);
                 }
             }
+
+    private void alertPopup(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(content);
+        alert.showAndWait();
+    }
         }
 
