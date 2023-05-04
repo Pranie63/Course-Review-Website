@@ -171,9 +171,6 @@ private Review review;
                 reviewPstmt.setInt(4, review.getRating());
                 reviewPstmt.executeUpdate();
                 reviewPstmt.close();
-
-                //connection.close();
-
             }
             else{
 //                System.out.println("Course not in system");
@@ -220,70 +217,64 @@ private Review review;
 //        return false;
     }
 //2.2.1.5
-    public Boolean courseHasReview(Course course) throws SQLException {
-        boolean hasReview;
-        String query = "SELECT * FROM REVIEWS WHERE CourseID = (SELECT id FROM COURSES WHERE Department = ? AND Catalog_Number = ?)";
-
-        PreparedStatement pstmt = connection.prepareStatement(query);
-        pstmt.setString(1, course.getDepartment());
-        pstmt.setInt(2, course.getCatalogNumber());
-
-        ResultSet rs = pstmt.executeQuery();
-
-        hasReview = rs.next();
-
-        rs.close();
-        pstmt.close();
-        return hasReview;
+    public Boolean courseHasReview(Course course) {
+        try {
+            boolean hasReview;
+            String query = "SELECT * FROM REVIEWS WHERE CourseID = (SELECT id FROM COURSES WHERE Department = ? AND Catalog_Number = ?)";
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setString(1, course.getDepartment());
+            pstmt.setInt(2, course.getCatalogNumber());
+            ResultSet rs = pstmt.executeQuery();
+            hasReview = rs.next();
+            rs.close();
+            pstmt.close();
+            return hasReview;
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public List<Review> getCourseReview(Course course) throws SQLException {
-        String query = "SELECT * FROM REVIEWS WHERE CourseID = (SELECT id FROM COURSES WHERE Department = ? AND Catalog_Number = ?)";
-
-        PreparedStatement pstmt = connection.prepareStatement(query);
-        pstmt.setString(1, course.getDepartment());
-        pstmt.setInt(2, course.getCatalogNumber());
-
-        ResultSet rs = pstmt.executeQuery();
-
-        List<Review> reviewList = new ArrayList<>();
-        Review courseReview;
-        while (rs.next()) {
-            courseReview = new Review(rs.getInt("Rating"), rs.getString("Message"));
-            reviewList.add(courseReview);
+    public List<Review> getCourseReview(Course course) {
+        try {
+            String query = "SELECT * FROM REVIEWS WHERE CourseID = (SELECT id FROM COURSES WHERE Department = ? AND Catalog_Number = ?)";
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setString(1, course.getDepartment());
+            pstmt.setInt(2, course.getCatalogNumber());
+            ResultSet rs = pstmt.executeQuery();
+            List<Review> reviewList = new ArrayList<>();
+            Review courseReview;
+            while (rs.next()) {
+                courseReview = new Review(rs.getInt("Rating"), rs.getString("Message"));
+                reviewList.add(courseReview);
+            }
+            rs.close();
+            pstmt.close();
+            return reviewList;
         }
-
-//        System.out.println(rs.getInt(1));
-
-        rs.close();
-        pstmt.close();
-        return reviewList;
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public HashMap<Course, Review> getStudentReview(Student student) {
         try {
             String query = "SELECT * FROM REVIEWS JOIN COURSES ON REVIEWS.CourseID = COURSES.id WHERE StudentID = (SELECT id FROM STUDENTS WHERE Username = ? AND Password = ?)";
-
             PreparedStatement pstmt = connection.prepareStatement(query);
             pstmt.setString(1, student.getName());
             pstmt.setString(2, student.getPassword());
-
             ResultSet rs = pstmt.executeQuery();
-
             HashMap<Course, Review> reviewMap = new HashMap<>();
             Review courseReview;
             Course course;
-            for (int i = 1 ; i <= rs.getMetaData().getColumnCount(); i++) {
-                System.out.println(rs.getMetaData().getColumnName(i));
-            }
+//            for (int i = 1 ; i <= rs.getMetaData().getColumnCount(); i++) {
+//                System.out.println(rs.getMetaData().getColumnName(i));
+//            }
             while (rs.next()) {
                 courseReview = new Review(rs.getInt("Rating"), rs.getString("Message"));
                 course = new Course(rs.getString("Department"), rs.getInt("Catalog_Number"));
                 reviewMap.put(course, courseReview);
             }
-
-//        System.out.println(rs.getInt(1));
-
             rs.close();
             pstmt.close();
             return reviewMap;
