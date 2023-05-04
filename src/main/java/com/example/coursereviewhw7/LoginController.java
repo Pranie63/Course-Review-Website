@@ -65,6 +65,13 @@ public class LoginController {
 
         String username = usernameTextField.getText();
         String password = passwordField.getText();
+        if (username.equals("") || password.equals("")) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("One or more of the input fields were not filled out. Please try again.");
+            alert.setTitle("Incomplete login");
+            alert.showAndWait();
+            return;
+        }
         Student student = new Student(username, password);
         Data d = new Data();
         d.programStart();
