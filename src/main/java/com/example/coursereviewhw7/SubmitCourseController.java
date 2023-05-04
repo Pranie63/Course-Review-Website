@@ -30,6 +30,9 @@ public class SubmitCourseController {
     private TextField CourseNameNumber;
 
     @FXML
+    private TextField CourseName;
+
+    @FXML
     private TextField reviewField;
 
     @FXML
@@ -72,8 +75,11 @@ public class SubmitCourseController {
 
     @FXML
     protected void AddCourse() {
-        String department = CourseNameDepartment.getText();
-        int CourseNumber = Integer.parseInt(CourseNameNumber.getText());
+//        String department = CourseNameDepartment.getText();
+//        int CourseNumber = Integer.parseInt(CourseNameNumber.getText());
+        String courseName = CourseName.getText();
+        String department = courseName.substring(0, courseName.indexOf(' '));
+        int CourseNumber = Integer.parseInt(courseName.substring(courseName.indexOf(' ') + 1));
 
         course = new Course(department, CourseNumber);
         HashMap<Course, Review> reviewList = new HashMap<>();

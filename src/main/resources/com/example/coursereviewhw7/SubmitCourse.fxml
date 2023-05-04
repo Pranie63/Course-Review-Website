@@ -12,10 +12,13 @@
 
         <Label layoutX="105" layoutY="1" text="Enter Course Information" style="-fx-font-size: 30;-fx-alignment: center;" AnchorPane.leftAnchor="40" AnchorPane.rightAnchor="40">
         </Label>
-        <Label layoutX="29.0" layoutY="91.0" text="Department:" AnchorPane.leftAnchor="100" AnchorPane.rightAnchor="100"/>
-        <TextField fx:id="CourseNameDepartment" layoutX="116.0" layoutY="91.0" AnchorPane.leftAnchor="185" AnchorPane.rightAnchor="185"/>
-        <Label layoutX="29.0" layoutY="134.0" text="Course Number:" AnchorPane.leftAnchor="85" AnchorPane.rightAnchor="85"/>
-        <TextField fx:id="CourseNameNumber" layoutX="116.0" layoutY="134.0" AnchorPane.leftAnchor="185" AnchorPane.rightAnchor="185"/>
+<!--        <Label layoutX="29.0" layoutY="91.0" text="Department:" AnchorPane.leftAnchor="100" AnchorPane.rightAnchor="100"/>-->
+<!--        <TextField fx:id="CourseNameDepartment" layoutX="116.0" layoutY="91.0" AnchorPane.leftAnchor="185" AnchorPane.rightAnchor="185"/>-->
+<!--        <Label layoutX="29.0" layoutY="134.0" text="Course Number:" AnchorPane.leftAnchor="85" AnchorPane.rightAnchor="85"/>-->
+<!--        <TextField fx:id="CourseNameNumber" layoutX="116.0" layoutY="134.0" AnchorPane.leftAnchor="185" AnchorPane.rightAnchor="185"/>-->
+
+        <Label layoutX="29.0" layoutY="91.0" text="Course Name:" AnchorPane.leftAnchor="85" AnchorPane.rightAnchor="85"/>
+        <TextField fx:id="CourseName" layoutX="116.0" layoutY="91.0" AnchorPane.leftAnchor="185" AnchorPane.rightAnchor="185"/>
 
         <Button fx:id="AddReviewButton" layoutX="190.0" layoutY="240.0" style = "-fx-background-color: green; -fx-font-size: 14px;-fx-alignment: center;" mnemonicParsing="false" text="Add course" onAction="#AddCourse"  prefWidth="50" prefHeight="40" AnchorPane.leftAnchor="185" AnchorPane.rightAnchor="185" />
         <Button fx:id="MainMenuButton" layoutX="190.0" layoutY="310.0" style = "-fx-background-color: green; -fx-font-size: 14px;-fx-alignment: center;" mnemonicParsing="false" text="Main Menu" onAction="#goToMainMenu"  prefWidth="50" prefHeight="40" AnchorPane.leftAnchor="185" AnchorPane.rightAnchor="185" />
