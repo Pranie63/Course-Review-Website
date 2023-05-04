@@ -310,7 +310,7 @@ private Review review;
         return dbFile.exists();
     }
 
-    private Boolean userExists(Student student) throws SQLException {
+    public Boolean userExists(Student student) throws SQLException {
         boolean exists;
         String query = "SELECT Username FROM STUDENTS WHERE Username = ?";
 
