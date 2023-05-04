@@ -67,7 +67,14 @@ public class NewUserController {
         Data d = new Data();
         d.programStart();
         {
-            if (!(NewAccountPassword.equals(NewAccountPasswordVerify))) {
+            if (NewAccountUsername.equals("") || NewAccountPassword.equals("") || NewAccountPasswordVerify.equals("")) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText("One or more of the input fields were not filled out. Please try again.");
+                alert.setTitle("Incomplete account creation");
+                alert.showAndWait();
+                return;
+            }
+            else if (!(NewAccountPassword.equals(NewAccountPasswordVerify))) {
                 System.out.println(NewAccountPassword);
                 System.out.println(NewAccountPasswordVerify);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
