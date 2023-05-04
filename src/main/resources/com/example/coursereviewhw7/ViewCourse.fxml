@@ -17,6 +17,7 @@
         <Label layoutX="29.0" layoutY="134.0" text="Course Number:" AnchorPane.leftAnchor="100" AnchorPane.rightAnchor="100"/>
         <TextField fx:id="CourseNameNumber" layoutX="116.0" layoutY="134.0" AnchorPane.leftAnchor="185" AnchorPane.rightAnchor="185"/>
         <Button fx:id="AddReviewButton" layoutX="148.0" layoutY="190.0" style = "-fx-background-color: green; -fx-font-size: 14px;-fx-alignment: center;" mnemonicParsing="false" text="View course" onAction="#ViewCourse"  prefWidth="50" prefHeight="40" AnchorPane.leftAnchor="185" AnchorPane.rightAnchor="185" />
+        <Button fx:id="MainMenuButton" layoutX="148.0" layoutY="260.0" style = "-fx-background-color: green; -fx-font-size: 14px;-fx-alignment: center;" mnemonicParsing="false" text="Main Menu" onAction="#goToMainMenu"  prefWidth="50" prefHeight="40" AnchorPane.leftAnchor="185" AnchorPane.rightAnchor="185" />
 
         <Label fx:id="averageLabel" text=""  layoutX="10.0" layoutY="360.0" />
         <Label fx:id="reviewLabel" text=""  layoutX="10.0" layoutY="400.0" />

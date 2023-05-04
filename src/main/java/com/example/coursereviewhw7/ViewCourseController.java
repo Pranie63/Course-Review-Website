@@ -41,7 +41,7 @@ public class ViewCourseController {
     private Button AddReviewButton;
 
     @FXML
-    private Button ConfirmReviewButton;
+    private Button MainMenuButton;
 
 
     @FXML
@@ -90,7 +90,8 @@ public class ViewCourseController {
         }
     }
 
-    private void goToMainMenu() {
+    @FXML
+    protected void goToMainMenu() {
         try {
             // Load the login screen FXML file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
