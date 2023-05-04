@@ -32,6 +32,9 @@ public class ViewCourseController {
     private TextField CourseNameNumber;
 
     @FXML
+    private TextField CourseName;
+
+    @FXML
     private TextField reviewField;
 
     @FXML
@@ -64,14 +67,17 @@ public class ViewCourseController {
     @FXML
     protected void ViewCourse() {
 
-        if (CourseNameDepartment.getText().equals("") || CourseNameNumber.getText().equals("")) {
-            alertPopup("Course Empty", "The course name field is empty. Please enter a valid course.");
-            goToMainMenu();
-            return;
-        }
-
-        String department = CourseNameDepartment.getText();
-        int CourseNumber = Integer.parseInt(CourseNameNumber.getText());
+//        if (CourseNameDepartment.getText().equals("") || CourseNameNumber.getText().equals("")) {
+//            alertPopup("Course Empty", "The course name field is empty. Please enter a valid course.");
+//            goToMainMenu();
+//            return;
+//        }
+//
+//        String department = CourseNameDepartment.getText();
+//        int CourseNumber = Integer.parseInt(CourseNameNumber.getText());
+        String courseName = CourseName.getText();
+        String department = courseName.substring(0, courseName.indexOf(' '));
+        int CourseNumber = Integer.parseInt(courseName.substring(courseName.indexOf(' ') + 1));
 
         course = new Course(department, CourseNumber);
         List<Review> reviewList;
