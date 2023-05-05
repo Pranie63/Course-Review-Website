@@ -1,0 +1,36 @@
+*AUTHORS*
+    Author 1: Pranav Ramkumar
+    Author 2: Ahbey Mesfin
+    Author 3: Arnav Singh
+
+*Program Description / Instructions*
+    This program is a simple review system (Like a reduced version of the UVA CourseForum). You will be
+    able to create and use an account in order to add and view reviews in the system.
+
+    To login, please run the HelloApplication class (NOTHING ELSE)
+
+    Upon entering you will face a login window that will allow you to either login into an existing account or
+    create a new account. The credentials needed to login are a username and password, and account creation will
+    require password verification.
+
+    After logging in, the user will enter the main menu page where three actions can be performed:
+        * Creating a new review for a course
+        * Viewing all reviews for a course
+        * Logging out
+
+    To create a new review for a course, a valid course must be entered which is an uppercase, up to 4 letter,
+    string followed by a 4 digit number. If the course does not already exist, it will be added to the courses
+    database and a review can be written for it, otherwise the review will be added to the pre-existing course.
+
+    To view a course, a valid course must be entered which is an uppercase, up to 4 letter, string followed by
+    a 4 digit number. If the course does not already exist or it has no reviews, the user will be alerted of
+    no available reviews. However, if the course does have reviews, the bottom of the page will showcase the
+    average course rating followed by the list of reviews anonymously.
+
+    To logout, simply click the button on the main menu, and the user will be redirected to the original login
+    page.
+
+    Hoping for great reviews!
+
+*Date/Time of Final Commit*
+    05/04/2023 11:32 PM
